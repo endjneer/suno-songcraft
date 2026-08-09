@@ -6,35 +6,52 @@ Non è un generatore di testi con qualche aggettivo in più: la skill lavora sui
 
 ## Installazione
 
-Dalla cartella che contiene questo repo:
+Non serve clonare niente: questo repo **è** il marketplace, perché contiene `.claude-plugin/marketplace.json` nella root. Da dentro Claude Code:
+
+```
+/plugin marketplace add electroendjneer/suno-songcraft
+/plugin install suno-songcraft@suno-tools
+```
+
+Se al termine compare `Run /reload-plugins to activate.`, esegui `/reload-plugins`. Per verificare: `/plugin`.
+
+La skill diventa disponibile come `/suno-songcraft` e Claude la richiama anche da solo quando la conversazione riguarda Suno, prompt musicali, testi da generare o una traccia venuta male.
+
+### Due avvertenze sulla forma `utente/repo`
+
+**Clona via SSH per default.** Se non hai una chiave SSH caricata per GitHub, forza HTTPS:
+
+```
+CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1 claude plugin marketplace add electroendjneer/suno-songcraft
+```
+
+oppure passa direttamente l'URL completo:
+
+```
+/plugin marketplace add https://github.com/electroendjneer/suno-songcraft.git
+```
+
+**Il repo è privato.** L'installazione da repo privata funziona — Claude Code usa i credential helper git che hai già configurati (`gh auth login`, keychain, `git-credential-store`) — ma solo per chi ha accesso al repo. Perché chiunque possa installarlo con quel comando, il repo deve diventare pubblico.
+
+### Aggiornamenti
+
+Chi ha già installato riceve le novità solo se alzi `version` in `.claude-plugin/plugin.json` **e** nella voce corrispondente di `.claude-plugin/marketplace.json`. Poi:
+
+```
+/plugin marketplace update suno-tools
+/plugin update suno-songcraft
+```
+
+In alternativa, togliendo del tutto il campo `version` da entrambi i file gli aggiornamenti seguono il commit SHA — comodo mentre il plugin è in sviluppo attivo, meno adatto a una distribuzione stabile.
+
+### Installazione da cartella locale
+
+Se preferisci lavorarci in locale senza passare da GitHub:
 
 ```
 /plugin marketplace add ./sunoskill
 /plugin install suno-songcraft@suno-tools
 ```
-
-(oppure il percorso assoluto della cartella, se lanci Claude Code da altrove)
-
-Se al termine compare `Run /reload-plugins to activate.`, esegui `/reload-plugins`.
-
-Per verificare:
-
-```
-/plugin
-```
-
-La skill diventa disponibile come `/suno-songcraft` e Claude la richiama anche da solo quando la conversazione riguarda Suno, prompt musicali, testi da generare o una traccia venuta male.
-
-### Se il repo finisce su GitHub
-
-Sostituisci il percorso locale con lo slug:
-
-```
-/plugin marketplace add <utente>/<repo>
-/plugin install suno-songcraft@suno-tools
-```
-
-Ricordati di alzare `version` in `.claude-plugin/plugin.json` a ogni release, altrimenti chi ha già installato non riceve gli aggiornamenti.
 
 ## Come si usa
 
