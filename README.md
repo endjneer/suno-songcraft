@@ -1,4 +1,8 @@
+<a id="english"></a>
+
 # Suno Songcraft
+
+> **English** · [Italiano →](#italiano)
 
 A Claude Code plugin that turns a song idea into paste-ready Suno prompts — **Style Box**, **Lyrics Box** with structure tags and performance cues, **Exclude Styles**, creative sliders, duration, and model choice across v4.5 / v4.5+ / v5 / v5.5.
 
@@ -94,7 +98,11 @@ License: **CC0 1.0 Universal**. Take it, change it, republish it, no obligations
 
 ---
 
+<a id="italiano"></a>
+
 # Suno Songcraft — in italiano
+
+> [← English](#english) · **Italiano**
 
 Plugin per Claude Code che trasforma un'idea di canzone in prompt Suno pronti da incollare: **Style Box**, **Lyrics Box** con structure tag e performance cue, **Exclude Styles**, slider creativi, durata e scelta del modello (v4.5 / v4.5+ / v5 / v5.5).
 
