@@ -1,6 +1,6 @@
 ---
 name: suno-songcraft
-description: Build release-ready Suno prompts — Style Box, Lyrics Box with structure tags and performance cues, Exclude Styles, creative sliders, duration control, and model choice across v4.5 / v4.5+ / v5 / v5.5. Use this skill whenever the user mentions Suno, AI music generation, style prompts, song metatags, or asks for lyrics intended for generation — and equally when they want to fix a track that came out generic, muddy, off-genre, rushed, too long, or with buried vocals. Also covers instrumental tracks, Voices/Personas/Custom Models, stem extraction, Studio edits, and the artist-name blocklist that silently breaks prompts.
+description: Build release-ready Suno prompts — Style Box, Lyrics Box with structure tags and performance cues, Exclude Styles, creative sliders, duration control, and model choice across v4.5 / v4.5+ / v5 / v5.5. Use this skill whenever the user mentions Suno, AI music generation, style prompts, song metatags, or asks for lyrics intended for generation — and equally when they want to fix a track that came out generic, muddy, off-genre, rushed, too long, or with buried vocals. Carries deep support for Italian- and Neapolitan-language songs: pronunciation control, dialect diction, and genre playbooks for cantautorato, itpop, trap italiana, italo disco, canzone napoletana, neomelodico and tammurriata. Also covers instrumental tracks, Voices/Personas/Custom Models, stem extraction, Studio edits, and the artist-name blocklist that silently breaks prompts.
 ---
 
 # Suno Songcraft
@@ -148,6 +148,26 @@ The slider sets a target, not a contract. Structure still has to fit it: asking 
 
 Without the slider, expect 2–3 generations to land near target, and trim in post. Max is ~8 minutes on V4.5 and later; quality degrades past 6–7.
 
+## Italian and Neapolitan
+
+The skill carries a deep layer for Italian-language repertoire, because pronunciation is where those tracks actually fail — the arrangement can be perfect and one swallowed final vowel still gives the record away.
+
+Three rules apply to any non-English track:
+
+- **Lyrics in the target language, Style Box always in English.** Suno's style vocabulary is English-trained; translated descriptors land unreliably. The language of the lyric is itself a style descriptor: `sung in Italian with native diction`.
+- **One language per section.** Mixing inside a section drifts the pronunciation across the whole section, not just the mixed line.
+- **Exclude the drift**: `no English vocals` earns its place in almost every Italian generation.
+
+Beyond that, reach for the reference files rather than improvising:
+
+| Situation | File |
+|---|---|
+| Any Italian-language lyric — final vowels, geminates, stress, homographs, elision | `references/italian-language.md` |
+| Cantautorato, itpop, Sanremo, rap and trap italiana, italo disco, pizzica, liscio, colonna sonora | `references/italian-genres.md` |
+| Anything in Neapolitan — schwa, sound changes from Italian, apostrophes, tammurriata, neomelodico, sceneggiata | `references/neapolitan-language.md` |
+
+`italian-genres.md` also carries the Italian half of the artist blocklist — the decomposition of named Italian artists into genre, vocal texture, instrumentation and production era, since naming them outright makes the prompt fail.
+
 ## Workflow
 
 1. **Establish intent** — genre and mood, theme, language, vocal direction, target duration, and whether Voices / Custom Model / Persona is active. Ask only for what's genuinely missing; infer the rest and state the assumption.
@@ -183,7 +203,7 @@ DURATION: <target, or "Auto">
 
 Then add a short note on what to listen for on the first take and which lever to move if it misses.
 
-When the user asks for something in a language other than English, the **lyrics** go in that language while the **style box stays in English** — Suno's style vocabulary is English-trained and translated descriptors land unreliably.
+For non-English tracks, see the Italian and Neapolitan section above — the language rules apply to the output format too.
 
 ## Pre-flight checklist
 
@@ -217,8 +237,11 @@ Two practical consequences worth raising when a user is building a catalog: **cu
 | `references/lyrics-box.md` | Formatting lyrics; choosing structure tags; bar counts, sound effects, duets |
 | `references/sliders-and-iteration.md` | Choosing slider values; deciding prompt-vs-slider; Song Editor, extends, stems, Studio |
 | `references/genre-playbook.md` | Need a genre-specific starting point, BPM range, or slider band |
+| `references/italian-language.md` | Any Italian-language lyric — pronunciation, stress, geminates, homographs |
+| `references/italian-genres.md` | Italian repertoire and the Italian artist blocklist |
+| `references/neapolitan-language.md` | Anything in Neapolitan — language, traditions, instruments, rhythms |
 | `references/troubleshooting.md` | A generation came back wrong and you need symptom → fix |
 
 ---
 
-*Portions of the reference material are adapted from `bitwize-music-studio/claude-ai-music-skills` (CC0 1.0 / public domain). Model and feature facts are sourced from Suno's official release notes, blog, and help centre; see `references/models-and-versions.md` for links.*
+*Attribution and sources: see `CREDITS.md` at the plugin root. In short — parts of the general reference material are adapted from `bitwize-music-studio/claude-ai-music-skills` (CC0 1.0), and model/feature facts come from Suno's official release notes, blog and help centre, linked in `references/models-and-versions.md`. The Italian and Neapolitan material is original to this skill.*

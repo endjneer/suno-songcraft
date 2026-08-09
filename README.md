@@ -4,6 +4,16 @@ Trasforma un'idea di canzone in prompt Suno pronti da incollare: **Style Box**, 
 
 Non è un generatore di testi con qualche aggettivo in più: la skill lavora sui punti in cui le generazioni Suno falliscono davvero — didascalie cantate per errore, voci sepolte nel mix, sezioni saltate, output generico, nomi di artisti che fanno fallire il prompt in silenzio.
 
+## Tarato sulla musica italiana
+
+È la parte che non trovi altrove. Un pezzo in italiano non fallisce sull'arrangiamento, fallisce sulla pronuncia: una vocale finale ingoiata e il disco si smaschera da solo.
+
+- **`italian-language.md`** — vocali finali, doppie geminate, accenti e accento tonico, omografi (*àncora* / *ancóra*), elisioni e troncamenti, numeri, nomi propri, accenti regionali
+- **`italian-genres.md`** — cantautorato classico e moderno, itpop, pop radiofonico e Sanremo, leggera anni Sessanta, rap e trap italiana, drill milanese, italo disco, italo house, eurodance, rock e prog italiano, pizzica, liscio, spaghetti western, giallo. Più la blocklist degli artisti italiani, scomposti in descrittori sonori
+- **`neapolitan-language.md`** — il napoletano come lingua a sé: schwa, mutamenti fonetici dall'italiano (*quanno*, *chiù*, *Maronna*), apostrofi che Suno legge come pause, metafonia, raddoppiamento sintattico, tabella di respelling, tradizioni dalla villanella al neomelodico, tammorra e tarantella
+
+Regola trasversale: **testi nella lingua richiesta, Style Box sempre in inglese**, perché il vocabolario di stile di Suno è addestrato in inglese.
+
 ## Installazione
 
 Non serve clonare niente: questo repo **è** il marketplace, perché contiene `.claude-plugin/marketplace.json` nella root. Da dentro Claude Code:
@@ -98,6 +108,9 @@ Nota: i **testi** vengono scritti nella lingua che chiedi, lo **style box resta 
 │           ├── lyrics-box.md             tag di struttura, affidabilità, sillabe, effetti, duetti
 │           ├── sliders-and-iteration.md  slider, Song Editor, extend, stem, Studio 1.2
 │           ├── genre-playbook.md         template per genere con BPM e bande di slider
+│           ├── italian-language.md       pronuncia italiana: vocali finali, doppie, accenti, omografi
+│           ├── italian-genres.md         generi italiani + blocklist artisti italiani
+│           ├── neapolitan-language.md    napoletano: fonologia, ortografia, tradizioni, strumenti
 │           └── troubleshooting.md        sintomo → causa → rimedio
 └── dist/
     └── suno-ai-mastery-v55.skill         pacchetto .skill della versione precedente (storico)
@@ -105,11 +118,15 @@ Nota: i **testi** vengono scritti nella lingua che chiedi, lo **style box resta 
 
 Claude carica `SKILL.md` quando la skill si attiva e apre i file in `references/` solo quando servono.
 
-## Fonti
+## Crediti, fonti, licenza
 
 I dati su modelli, limiti dei campi e funzioni provengono dalla documentazione ufficiale Suno (help center, release notes, blog). L'elenco completo dei link è in fondo a `skills/suno-songcraft/references/models-and-versions.md`, così è verificabile e aggiornabile quando Suno cambia qualcosa.
 
-Parte del materiale di riferimento è adattato da `bitwize-music-studio/claude-ai-music-skills` (CC0 1.0 / pubblico dominio).
+Parte del materiale di riferimento generale è adattato da [`bitwize-music-studio/claude-ai-music-skills`](https://github.com/bitwize-music-studio/claude-ai-music-skills) (CC0 1.0). È un progetto molto più ampio — 52 skill e una pipeline album completa: se cerchi quello, vai lì. Il dettaglio di cosa deriva da dove è in [`CREDITS.md`](CREDITS.md).
+
+Il materiale su italiano e napoletano è originale di questo plugin.
+
+Licenza: **CC0 1.0 Universal**. Prendi, modifica, ripubblica, senza obblighi.
 
 ## Manutenzione
 

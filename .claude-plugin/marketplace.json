@@ -9,10 +9,18 @@
     {
       "name": "suno-songcraft",
       "source": "./",
-      "description": "Turns a song idea into paste-ready Suno prompts: Style Box, tagged Lyrics Box, Exclude Styles, creative sliders, duration and model choice across v4.5, v5 and v5.5.",
-      "version": "1.0.0",
+      "description": "Prompt Suno pronti da incollare (v4.5-v5.5), con supporto profondo per italiano e napoletano: pronuncia, dialetto, generi.",
+      "version": "1.1.0",
       "category": "creative",
-      "tags": ["suno", "music", "songwriting", "lyrics", "prompting"]
+      "tags": [
+        "suno",
+        "music",
+        "songwriting",
+        "lyrics",
+        "prompting",
+        "italian",
+        "neapolitan"
+      ]
     }
   ]
 }
