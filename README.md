@@ -1,22 +1,116 @@
-# Suno Songcraft — plugin per Claude Code
+# Suno Songcraft
 
-Trasforma un'idea di canzone in prompt Suno pronti da incollare: **Style Box**, **Lyrics Box** con structure tag e performance cue, **Exclude Styles**, slider creativi, durata e scelta del modello (v4.5 / v4.5+ / v5 / v5.5).
+A Claude Code plugin that turns a song idea into paste-ready Suno prompts — **Style Box**, **Lyrics Box** with structure tags and performance cues, **Exclude Styles**, creative sliders, duration, and model choice across v4.5 / v4.5+ / v5 / v5.5.
 
-Non è un generatore di testi con qualche aggettivo in più: la skill lavora sui punti in cui le generazioni Suno falliscono davvero — didascalie cantate per errore, voci sepolte nel mix, sezioni saltate, output generico, nomi di artisti che fanno fallire il prompt in silenzio.
+It isn't a lyric generator with extra adjectives. It works on the places Suno generations actually fail: stage directions sung out loud by mistake, vocals buried in the mix, sections skipped, generic-but-correct output, and artist names that make a prompt fail silently.
+
+**Its distinguishing feature is Italian.** Most Suno guidance is English-first, and an Italian-language track doesn't fail on the arrangement — it fails on pronunciation. One swallowed final vowel and a native listener hears it immediately. This plugin carries three reference files that no general Suno guide covers:
+
+- **`italian-language.md`** — final vowels, geminate consonants, the grapheme risk table (`gli`, `gn`, `sci`, `z`, intervocalic `s`), stress and written accents, ten Italian homographs, elision and truncation, regional diction
+- **`italian-genres.md`** — 17 Italian genre entries with style-box templates, BPM ranges and slider bands: cantautorato, itpop, Sanremo, boom bap and trap italiana, drill, italo disco, italo house, eurodance, Italian rock and prog, pizzica, liscio, spaghetti western, giallo. Plus the Italian half of the artist blocklist, decomposed into sonic descriptors
+- **`neapolitan-language.md`** — Neapolitan treated as its own language: the schwa, regular sound changes from Italian (*quanno*, *chiù*, *Maronna*), apostrophes Suno reads as pauses, metaphony, syntactic doubling, a respelling table, seven traditions from villanella to rap, tammorra and tarantella rhythms
+
+The rule that governs all of it: **lyrics in the target language, Style Box always in English** — Suno's style vocabulary is English-trained and translated descriptors land unreliably.
+
+## Install
+
+No cloning needed: this repo **is** the marketplace, because it carries `.claude-plugin/marketplace.json` at its root.
+
+```
+/plugin marketplace add electroendjneer/suno-songcraft
+/plugin install suno-songcraft@suno-tools
+```
+
+If the install summary says `Run /reload-plugins to activate.`, run it. Check with `/plugin`.
+
+The skill is then available as `/suno-songcraft`, and Claude invokes it on its own whenever the conversation turns to Suno, style prompts, lyrics meant for generation, or a track that came out wrong.
+
+**Two caveats on the `owner/repo` form.** It clones over SSH by default — if you have no SSH key loaded for GitHub, force HTTPS with `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`, or pass the full `https://github.com/electroendjneer/suno-songcraft.git` URL instead. And **this repo is currently private**: installing from a private repo works (Claude Code uses your existing git credential helpers) but only for accounts with access to it.
+
+## Usage
+
+Just describe what you want:
+
+> *"Voglio una ballad italiana malinconica per pianoforte e archi, voce femminile, circa 3 minuti"*
+> *"A Neapolitan tammurriata, group vocals, tammorra ostinato"*
+> *"This came out generic — here's the style box I used, fix it"*
+> *"Why is Suno singing '(instrumental break)' out loud?"*
+
+Output always arrives field by field, with character counts:
+
+```
+MODEL: v5.5 · INSTRUMENTAL: Off
+
+STYLE BOX  (238/1000)
+────────────────────────────────
+...
+
+LYRICS BOX  (1,847/5000)
+────────────────────────────────
+...
+
+EXCLUDE STYLES: ...
+SLIDERS: Weirdness ... · Style Influence ...
+DURATION: ...
+```
+
+## Layout
+
+```
+.
+├── .claude-plugin/
+│   ├── plugin.json           plugin manifest
+│   └── marketplace.json      catalog — lets /plugin marketplace add point at this repo
+├── skills/
+│   └── suno-songcraft/
+│       ├── SKILL.md          rules, workflow, output format, pre-flight checklist
+│       └── references/
+│           ├── models-and-versions.md    v4.5 / v4.5+ / v5 / v5.5, plan gating, 2026 feature timeline
+│           ├── style-box.md              style construction, vocal vocabulary, artist blocklist
+│           ├── lyrics-box.md             structure tags, reliability tiers, syllables, SFX, duets
+│           ├── sliders-and-iteration.md  sliders, Song Editor, extends, stems, Studio 1.2
+│           ├── genre-playbook.md         per-genre templates with BPM and slider bands
+│           ├── italian-language.md       Italian pronunciation for Suno
+│           ├── italian-genres.md         Italian genres + Italian artist blocklist
+│           ├── neapolitan-language.md    Neapolitan: phonology, orthography, traditions
+│           └── troubleshooting.md        symptom → cause → fix
+└── dist/
+    └── suno-ai-mastery-v55.skill         previous packaged version, kept for reference
+```
+
+Claude loads `SKILL.md` when the skill fires and opens `references/` files only when it needs them.
+
+## Credits, sources, license
+
+Model facts, field limits and feature availability come from Suno's official documentation — help centre, release notes, blog. The full link list is at the bottom of `references/models-and-versions.md`, so it stays verifiable as Suno changes.
+
+Parts of the general reference material are adapted from [`bitwize-music-studio/claude-ai-music-skills`](https://github.com/bitwize-music-studio/claude-ai-music-skills) (CC0 1.0) — a far larger project, 52 skills and a full album production pipeline. If that's what you want, go there instead. Item-by-item attribution is in [`CREDITS.md`](CREDITS.md).
+
+The Italian and Neapolitan material is original to this plugin.
+
+License: **CC0 1.0 Universal**. Take it, change it, republish it, no obligations.
+
+---
+
+# Suno Songcraft — in italiano
+
+Plugin per Claude Code che trasforma un'idea di canzone in prompt Suno pronti da incollare: **Style Box**, **Lyrics Box** con structure tag e performance cue, **Exclude Styles**, slider creativi, durata e scelta del modello (v4.5 / v4.5+ / v5 / v5.5).
+
+Non è un generatore di testi con qualche aggettivo in più: lavora sui punti in cui le generazioni Suno falliscono davvero — didascalie cantate per errore, voci sepolte nel mix, sezioni saltate, output generico, nomi di artisti che fanno fallire il prompt in silenzio.
 
 ## Tarato sulla musica italiana
 
 È la parte che non trovi altrove. Un pezzo in italiano non fallisce sull'arrangiamento, fallisce sulla pronuncia: una vocale finale ingoiata e il disco si smaschera da solo.
 
-- **`italian-language.md`** — vocali finali, doppie geminate, accenti e accento tonico, omografi (*àncora* / *ancóra*), elisioni e troncamenti, numeri, nomi propri, accenti regionali
-- **`italian-genres.md`** — cantautorato classico e moderno, itpop, pop radiofonico e Sanremo, leggera anni Sessanta, rap e trap italiana, drill milanese, italo disco, italo house, eurodance, rock e prog italiano, pizzica, liscio, spaghetti western, giallo. Più la blocklist degli artisti italiani, scomposti in descrittori sonori
-- **`neapolitan-language.md`** — il napoletano come lingua a sé: schwa, mutamenti fonetici dall'italiano (*quanno*, *chiù*, *Maronna*), apostrofi che Suno legge come pause, metafonia, raddoppiamento sintattico, tabella di respelling, tradizioni dalla villanella al neomelodico, tammorra e tarantella
+- **`italian-language.md`** — vocali finali, doppie geminate, tabella dei grafemi a rischio (`gli`, `gn`, `sci`, `z`, `s` intervocalica), accento tonico e accenti scritti, dieci omografi italiani (*àncora* / *ancóra*), elisione e troncamento, dizione regionale
+- **`italian-genres.md`** — 17 voci di genere con template di Style Box, BPM e bande di slider: cantautorato classico e moderno, itpop, pop radiofonico, Sanremo, leggera anni Sessanta, boom bap e trap italiana, drill milanese, italo disco, italo house, eurodance, rock e prog italiano, pizzica, liscio, canto popolare, spaghetti western, giallo, commedia all'italiana. Più la blocklist degli artisti italiani, scomposti in descrittori sonori
+- **`neapolitan-language.md`** — il napoletano come lingua a sé: schwa, mutamenti fonetici regolari dall'italiano (*quanno*, *chiù*, *Maronna*), apostrofi che Suno legge come pause, metafonia, raddoppiamento sintattico, tabella di respelling, sette tradizioni dalla villanella al rap, tammorra e tarantella
 
-Regola trasversale: **testi nella lingua richiesta, Style Box sempre in inglese**, perché il vocabolario di stile di Suno è addestrato in inglese.
+Regola trasversale: **testi nella lingua richiesta, Style Box sempre in inglese**, perché il vocabolario di stile di Suno è addestrato in inglese e i descrittori tradotti rendono in modo inaffidabile.
 
 ## Installazione
 
-Non serve clonare niente: questo repo **è** il marketplace, perché contiene `.claude-plugin/marketplace.json` nella root. Da dentro Claude Code:
+Non serve clonare niente: questo repo **è** il marketplace, perché contiene `.claude-plugin/marketplace.json` nella root.
 
 ```
 /plugin marketplace add electroendjneer/suno-songcraft
@@ -27,21 +121,14 @@ Se al termine compare `Run /reload-plugins to activate.`, esegui `/reload-plugin
 
 La skill diventa disponibile come `/suno-songcraft` e Claude la richiama anche da solo quando la conversazione riguarda Suno, prompt musicali, testi da generare o una traccia venuta male.
 
-### Due avvertenze sulla forma `utente/repo`
+**Due avvertenze sulla forma `utente/repo`.** Clona via SSH per default: se non hai una chiave SSH caricata per GitHub, forza HTTPS con `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`, oppure passa direttamente l'URL `https://github.com/electroendjneer/suno-songcraft.git`. E **il repo al momento è privato**: l'installazione da repo privata funziona — Claude Code usa i credential helper git che hai già configurati — ma solo per chi ha accesso.
 
-**Clona via SSH per default.** Se non hai una chiave SSH caricata per GitHub, forza HTTPS:
-
-```
-CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1 claude plugin marketplace add electroendjneer/suno-songcraft
-```
-
-oppure passa direttamente l'URL completo:
+### Installazione da cartella locale
 
 ```
-/plugin marketplace add https://github.com/electroendjneer/suno-songcraft.git
+/plugin marketplace add ./sunoskill
+/plugin install suno-songcraft@suno-tools
 ```
-
-**Il repo è privato.** L'installazione da repo privata funziona — Claude Code usa i credential helper git che hai già configurati (`gh auth login`, keychain, `git-credential-store`) — ma solo per chi ha accesso al repo. Perché chiunque possa installarlo con quel comando, il repo deve diventare pubblico.
 
 ### Aggiornamenti
 
@@ -52,81 +139,7 @@ Chi ha già installato riceve le novità solo se alzi `version` in `.claude-plug
 /plugin update suno-songcraft
 ```
 
-In alternativa, togliendo del tutto il campo `version` da entrambi i file gli aggiornamenti seguono il commit SHA — comodo mentre il plugin è in sviluppo attivo, meno adatto a una distribuzione stabile.
-
-### Installazione da cartella locale
-
-Se preferisci lavorarci in locale senza passare da GitHub:
-
-```
-/plugin marketplace add ./sunoskill
-/plugin install suno-songcraft@suno-tools
-```
-
-## Come si usa
-
-Basta descrivere quello che vuoi. Qualche esempio:
-
-- «Voglio una ballad italiana malinconica per pianoforte e archi, voce femminile, circa 3 minuti»
-- «Fammi un pezzo drum & bass strumentale per un trailer, 174 BPM, cupo»
-- «Questa traccia mi è venuta generica, ecco lo style box che ho usato — sistemalo»
-- «Perché Suno mi canta “(instrumental break)”?»
-
-L'output arriva sempre nello stesso formato, campo per campo, con il conteggio caratteri:
-
-```
-MODEL: v5.5 · INSTRUMENTAL: Off
-
-STYLE BOX  (238/1000)
-────────────────────────────────
-...
-
-LYRICS BOX  (1.847/5000)
-────────────────────────────────
-...
-
-EXCLUDE STYLES: ...
-SLIDERS: Weirdness ... · Style Influence ...
-DURATION: ...
-```
-
-Nota: i **testi** vengono scritti nella lingua che chiedi, lo **style box resta in inglese** — il vocabolario di stile di Suno è addestrato in inglese e i descrittori tradotti rendono in modo inaffidabile.
-
-## Struttura
-
-```
-.
-├── .claude-plugin/
-│   ├── plugin.json           manifest del plugin
-│   └── marketplace.json      catalogo (permette /plugin marketplace add su questa cartella)
-├── skills/
-│   └── suno-songcraft/
-│       ├── SKILL.md          regole, workflow, formato di output, checklist
-│       └── references/
-│           ├── models-and-versions.md    v4.5 / v4.5+ / v5 / v5.5, gating per piano, timeline funzioni
-│           ├── style-box.md              costruzione dello stile, vocabolario vocale, blocklist artisti
-│           ├── lyrics-box.md             tag di struttura, affidabilità, sillabe, effetti, duetti
-│           ├── sliders-and-iteration.md  slider, Song Editor, extend, stem, Studio 1.2
-│           ├── genre-playbook.md         template per genere con BPM e bande di slider
-│           ├── italian-language.md       pronuncia italiana: vocali finali, doppie, accenti, omografi
-│           ├── italian-genres.md         generi italiani + blocklist artisti italiani
-│           ├── neapolitan-language.md    napoletano: fonologia, ortografia, tradizioni, strumenti
-│           └── troubleshooting.md        sintomo → causa → rimedio
-└── dist/
-    └── suno-ai-mastery-v55.skill         pacchetto .skill della versione precedente (storico)
-```
-
-Claude carica `SKILL.md` quando la skill si attiva e apre i file in `references/` solo quando servono.
-
-## Crediti, fonti, licenza
-
-I dati su modelli, limiti dei campi e funzioni provengono dalla documentazione ufficiale Suno (help center, release notes, blog). L'elenco completo dei link è in fondo a `skills/suno-songcraft/references/models-and-versions.md`, così è verificabile e aggiornabile quando Suno cambia qualcosa.
-
-Parte del materiale di riferimento generale è adattato da [`bitwize-music-studio/claude-ai-music-skills`](https://github.com/bitwize-music-studio/claude-ai-music-skills) (CC0 1.0). È un progetto molto più ampio — 52 skill e una pipeline album completa: se cerchi quello, vai lì. Il dettaglio di cosa deriva da dove è in [`CREDITS.md`](CREDITS.md).
-
-Il materiale su italiano e napoletano è originale di questo plugin.
-
-Licenza: **CC0 1.0 Universal**. Prendi, modifica, ripubblica, senza obblighi.
+Togliendo del tutto il campo `version` da entrambi i file, gli aggiornamenti seguono invece il commit SHA — comodo in sviluppo attivo, meno adatto a una distribuzione stabile.
 
 ## Manutenzione
 
@@ -136,4 +149,12 @@ Suno rilascia funzioni con frequenza alta. I punti che invecchiano per primi, in
 2. **Timeline funzioni 2026** — stessa pagina, sezione finale
 3. **Gating dei piani** — verifica sulla pagina prezzi prima di consigliare un upgrade
 
-Quando aggiorni, alza `version` in `plugin.json` e in `marketplace.json` e annota la modifica nel `CHANGELOG.md`.
+Quando aggiorni, alza `version` nei due manifest e annota la modifica nel `CHANGELOG.md`.
+
+## Crediti e licenza
+
+Dati su modelli, limiti dei campi e funzioni dalla documentazione ufficiale Suno; link completi in fondo a `references/models-and-versions.md`.
+
+Parte del materiale di riferimento generale è adattato da [`bitwize-music-studio/claude-ai-music-skills`](https://github.com/bitwize-music-studio/claude-ai-music-skills) (CC0 1.0), progetto molto più ampio — 52 skill e una pipeline album completa. Il dettaglio voce per voce è in [`CREDITS.md`](CREDITS.md). Il materiale su italiano e napoletano è originale di questo plugin.
+
+Licenza: **CC0 1.0 Universal**.
