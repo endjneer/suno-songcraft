@@ -1,0 +1,18 @@
+{
+  "name": "suno-tools",
+  "description": "Skills for making music with Suno.",
+  "owner": {
+    "name": "electroendjneer",
+    "url": "https://github.com/electroendjneer"
+  },
+  "plugins": [
+    {
+      "name": "suno-songcraft",
+      "source": "./",
+      "description": "Turns a song idea into paste-ready Suno prompts: Style Box, tagged Lyrics Box, Exclude Styles, creative sliders, duration and model choice across v4.5, v5 and v5.5.",
+      "version": "1.0.0",
+      "category": "creative",
+      "tags": ["suno", "music", "songwriting", "lyrics", "prompting"]
+    }
+  ]
+}
