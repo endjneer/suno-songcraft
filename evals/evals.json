@@ -1,6 +1,6 @@
 {
   "skill_name": "suno-songcraft",
-  "baseline": "suno-ai-mastery-v55 (versione precedente, estratta da dist/)",
+  "baseline": "suno-ai-mastery-v55 (versione precedente, estratta da dist/suno-ai-mastery.skill)",
   "evals": [
     {
       "id": 0,
