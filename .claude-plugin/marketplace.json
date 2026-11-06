@@ -9,8 +9,8 @@
     {
       "name": "suno-songcraft",
       "source": "./",
-      "description": "Prompt Suno pronti da incollare (v4.5-v5.5), con supporto profondo per italiano e napoletano: pronuncia, dialetto, generi.",
-      "version": "1.1.0",
+      "description": "Prompt Suno pronti da incollare (v6, v6-wild, v6-mini), con supporto profondo per italiano e napoletano: pronuncia, dialetto, generi.",
+      "version": "1.2.0",
       "category": "creative",
       "tags": [
         "suno",

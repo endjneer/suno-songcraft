@@ -6,21 +6,21 @@
       "id": 0,
       "name": "podcast-sigla-90s-italiano",
       "prompt": "devo fare una sigla per il mio podcast di true crime, massimo 90 secondi. cupa ma non da film horror, synth e basso profondo, niente batteria aggressiva. voce femminile bassa che quasi parla, testo in italiano. sono su Suno con Pro e uso il sito da desktop",
-      "expected_output": "Pacchetto prompt completo: style box in inglese, testo in italiano, durata gestita con lo slider v5.5 (non solo conteggio sezioni), struttura corta coerente con 90 secondi, exclude styles, conteggi caratteri",
+      "expected_output": "Pacchetto prompt completo: style box in inglese, testo in italiano, modello v6, Variety Off, durata gestita con il conteggio delle sezioni (slider Duration da verificare in-app su v6), struttura corta coerente con 90 secondi, exclude styles, conteggi caratteri",
       "files": []
     },
     {
       "id": 1,
       "name": "diagnosi-output-piatto",
-      "prompt": "ho rigenerato lo stesso pezzo 4 volte e viene sempre piatto e anonimo. lo style box che uso e' questo: 'epic powerful emotional cinematic dramatic intense orchestral music, beautiful and moving, amazing production'. nel campo testi ho solo [Verse] [Chorus] [Verse] [Chorus] con le strofe. sono su v5.5, gli slider li ho lasciati come stanno. dove sbaglio?",
-      "expected_output": "Diagnosi che parte dal synonym-pile nello style box e dalle performance cue mancanti, non dagli slider; [End] mancante; style box riscritto; indicazione che 50% e' la baseline dichiarata da Suno",
+      "prompt": "ho rigenerato lo stesso pezzo 4 volte e viene sempre piatto e anonimo. lo style box che uso e' questo: 'epic powerful emotional cinematic dramatic intense orchestral music, beautiful and moving, amazing production'. nel campo testi ho solo [Verse] [Chorus] [Verse] [Chorus] con le strofe. sono su v6, gli slider li ho lasciati come stanno. dove sbaglio?",
+      "expected_output": "Diagnosi che parte dal synonym-pile nello style box e dalle performance cue mancanti, non dagli slider; controllo che Variety sia Off (tag riscritti); [End] mancante; style box riscritto; indicazione che 50% e' la baseline dichiarata da Suno",
       "files": []
     },
     {
       "id": 2,
       "name": "metalcore-account-gratuito",
-      "prompt": "sto provando a fare metalcore su suno ma esce sempre moscio, chitarre impastate e batteria finta. ho l'account gratuito. mi conviene passare a Pro per avere il v5.5 o e' colpa di come scrivo i prompt?",
-      "expected_output": "Deve dire che il piano free gira su v4.5-all, che sui generi pesanti v4.5 a volte batte v5 (quindi l'upgrade non risolve da solo), la trappola non retroattiva dei diritti commerciali sul free, e le correzioni di prompt per il metal (style influence alta, weirdness bassa, sottogenere e tipo di voce espliciti)",
+      "prompt": "sto provando a fare metalcore su suno ma esce sempre moscio, chitarre impastate e batteria finta. ho l'account gratuito. mi conviene passare a Pro per avere il v6 o e' colpa di come scrivo i prompt?",
+      "expected_output": "Deve dire che il piano free gira su v6-mini e che v6 richiede Pro o Premier, che l'upgrade da solo non risolve un problema di prompt e che non esiste piu' un modello di riserva per i generi pesanti, la trappola non retroattiva dei diritti commerciali sul free, e le correzioni di prompt per il metal (style influence alta, weirdness bassa, Variety Off, sottogenere e tipo di voce espliciti)",
       "files": []
     }
   ]

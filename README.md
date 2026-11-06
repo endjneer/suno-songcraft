@@ -4,7 +4,7 @@
 
 > **English** · [Italiano →](#italiano)
 
-A Claude Code plugin that turns a song idea into paste-ready Suno prompts — **Style Box**, **Lyrics Box** with structure tags and performance cues, **Exclude Styles**, creative sliders, duration, and model choice across v4.5 / v4.5+ / v5 / v5.5.
+A Claude Code plugin that turns a song idea into paste-ready Suno prompts — **Style Box**, **Lyrics Box** with structure tags and performance cues, **Exclude Styles**, creative sliders including Variety and Max Mode, duration, and model choice across v6 / v6-wild / v6-mini.
 
 It isn't a lyric generator with extra adjectives. It works on the places Suno generations actually fail: stage directions sung out loud by mistake, vocals buried in the mix, sections skipped, generic-but-correct output, and artist names that make a prompt fail silently.
 
@@ -45,7 +45,7 @@ Just describe what you want:
 Output always arrives field by field, with character counts:
 
 ```
-MODEL: v5.5 · INSTRUMENTAL: Off
+MODEL: v6 · MODE: Custom · INSTRUMENTAL: Off
 
 STYLE BOX  (238/1000)
 ────────────────────────────────
@@ -56,7 +56,8 @@ LYRICS BOX  (1,847/5000)
 ...
 
 EXCLUDE STYLES: ...
-SLIDERS: Weirdness ... · Style Influence ...
+SLIDERS: Variety Off · Weirdness ... · Style Influence ...
+MAX MODE: Off
 DURATION: ...
 ```
 
@@ -71,10 +72,10 @@ DURATION: ...
 │   └── suno-songcraft/
 │       ├── SKILL.md          rules, workflow, output format, pre-flight checklist
 │       └── references/
-│           ├── models-and-versions.md    v4.5 / v4.5+ / v5 / v5.5, plan gating, 2026 feature timeline
+│           ├── models-and-versions.md    v6 / v6-wild / v6-mini, v5.5 → v6 migration, plan gating, retired models, 2026 timeline
 │           ├── style-box.md              style construction, vocal vocabulary, artist blocklist
 │           ├── lyrics-box.md             structure tags, reliability tiers, syllables, SFX, duets
-│           ├── sliders-and-iteration.md  sliders, Song Editor, extends, stems, Studio 1.2
+│           ├── sliders-and-iteration.md  sliders incl. Variety, Max Mode, plain-language edits, Song Editor, stems, Studio 2.0
 │           ├── genre-playbook.md         per-genre templates with BPM and slider bands
 │           ├── italian-language.md       Italian pronunciation for Suno
 │           ├── italian-genres.md         Italian genres + Italian artist blocklist
@@ -104,7 +105,7 @@ License: **CC0 1.0 Universal**. Take it, change it, republish it, no obligations
 
 > [← English](#english) · **Italiano**
 
-Plugin per Claude Code che trasforma un'idea di canzone in prompt Suno pronti da incollare: **Style Box**, **Lyrics Box** con structure tag e performance cue, **Exclude Styles**, slider creativi, durata e scelta del modello (v4.5 / v4.5+ / v5 / v5.5).
+Plugin per Claude Code che trasforma un'idea di canzone in prompt Suno pronti da incollare: **Style Box**, **Lyrics Box** con structure tag e performance cue, **Exclude Styles**, slider creativi (incluse Variety e Max Mode), durata e scelta del modello (v6 / v6-wild / v6-mini).
 
 Non è un generatore di testi con qualche aggettivo in più: lavora sui punti in cui le generazioni Suno falliscono davvero — didascalie cantate per errore, voci sepolte nel mix, sezioni saltate, output generico, nomi di artisti che fanno fallire il prompt in silenzio.
 
