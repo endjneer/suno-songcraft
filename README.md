@@ -82,7 +82,7 @@ DURATION: ...
 │           ├── neapolitan-language.md    Neapolitan: phonology, orthography, traditions
 │           └── troubleshooting.md        symptom → cause → fix
 └── dist/
-    └── suno-ai-mastery-v55.skill         previous packaged version, kept for reference
+    └── suno-ai-mastery.skill             previous packaged version, kept for reference
 ```
 
 Claude loads `SKILL.md` when the skill fires and opens `references/` files only when it needs them.
