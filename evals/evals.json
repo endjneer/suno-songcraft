@@ -22,6 +22,13 @@
       "prompt": "sto provando a fare metalcore su suno ma esce sempre moscio, chitarre impastate e batteria finta. ho l'account gratuito. mi conviene passare a Pro per avere il v6 o e' colpa di come scrivo i prompt?",
       "expected_output": "Deve dire che il piano free gira su v6-mini e che v6 richiede Pro o Premier, che l'upgrade da solo non risolve un problema di prompt e che non esiste piu' un modello di riserva per i generi pesanti, la trappola non retroattiva dei diritti commerciali sul free, e le correzioni di prompt per il metal (style influence alta, weirdness bassa, Variety Off, sottogenere e tipo di voce espliciti)",
       "files": []
+    },
+    {
+      "id": 3,
+      "name": "generazione-diretta-connettore",
+      "prompt": "hai il connettore suno, generami direttamente una ballata napoletana di circa due minuti, voce maschile calda, chitarra classica e mandolino. sono su Premier",
+      "expected_output": "Legge account-usage, mostra style box, testo in napoletano con tag e performance cue ed exclude styles, e chiede conferma prima di spendere crediti. Nella chiamata: model v6 esplicito, controls.variety 0 esplicito, nessun max_mode non richiesto, durata gestita col numero di sezioni (niente duration oppure duration_strict false). Dopo la generazione propone di verificare con audio-analysis, audio-lyrics-alignment e audio-listen prima di cambiare qualcosa, avvisando che audio-listen trascrive male il napoletano",
+      "files": []
     }
   ]
 }

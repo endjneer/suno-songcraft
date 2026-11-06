@@ -20,6 +20,8 @@ Symptom → cause → fix. Work top-down: most complaints about Suno output reso
 
 **Early user reports on v6** (anecdotal, not confirmed by Suno): dull or muffled top end, vocals buried in the mix, BPM and genre ignored. Rule out Variety first, then work the matching entry below — [Vocals buried under the band](#vocals-buried-under-the-band), [Mix and production problems](#mix-and-production-problems), [Output drifts off-genre or ignores the tags](#output-drifts-off-genre-or-ignores-the-tags) — and state the BPM explicitly in the style box.
 
+**With Suno's connector, measure before guessing.** `audio-analysis`, `audio-lyrics-alignment` and `audio-listen` are free and turn most symptoms below into a measured finding — see `suno-connector.md`.
+
 ---
 
 ## Vocal problems

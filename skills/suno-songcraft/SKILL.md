@@ -1,6 +1,6 @@
 ---
 name: suno-songcraft
-description: Build release-ready Suno prompts — Style Box, Lyrics Box with structure tags and performance cues, Exclude Styles, creative sliders including Variety and Max Mode, duration control, and model choice across v6 / v6-wild / v6-mini. Use this skill whenever the user mentions Suno, AI music generation, style prompts, song metatags, or asks for lyrics intended for generation — and equally when they want to fix a track that came out generic, muddy, off-genre, rushed, too long, with buried vocals or with style tags Suno rewrote, edit an existing song in plain language, or migrate prompts from v5.5 to v6. Carries deep support for Italian- and Neapolitan-language songs: pronunciation control, dialect diction, and genre playbooks for cantautorato, itpop, trap italiana, italo disco, canzone napoletana, neomelodico and tammurriata. Also covers instrumental tracks, Voices/Personas/Custom Models, stem extraction, Studio edits, and the artist-name blocklist that silently breaks prompts.
+description: Build release-ready Suno prompts — Style Box, Lyrics Box with structure tags and performance cues, Exclude Styles, creative sliders including Variety and Max Mode, duration control, and model choice across v6 / v6-wild / v6-mini. Use this skill whenever the user mentions Suno, AI music generation, style prompts, song metatags, or asks for lyrics intended for generation — and equally when they want to fix a track that came out generic, muddy, off-genre, rushed, too long, with buried vocals or with style tags Suno rewrote, edit an existing song in plain language, or migrate prompts from v5.5 to v6. Carries deep support for Italian- and Neapolitan-language songs: pronunciation control, dialect diction, and genre playbooks for cantautorato, itpop, trap italiana, italo disco, canzone napoletana, neomelodico and tammurriata. Also covers generating and checking songs through Suno's connector, instrumental tracks, Voices and Custom Models, stems, Studio, and the artist-name blocklist that silently breaks prompts.
 ---
 
 # Suno Songcraft
@@ -16,7 +16,7 @@ Work from the field limits below. They are the single most common source of stal
 | Style Box | **1,000 chars** |
 | Lyrics Box | **5,000 chars** |
 | Simple mode description | **3,000 chars** |
-| Title | 100 chars *(v5-era figure)* |
+| Title | 100 chars in-app *(v5-era figure)*; the API takes 256 |
 
 The style, lyrics and description caps are the ones Suno's own API enforces; if the Create form's counter disagrees, trust the counter. Two caveats matter more than the caps (both measured on v5-era models; unverified on v6):
 
@@ -185,8 +185,8 @@ Beyond that, reach for the reference files rather than improvising:
 6. **Write the Lyrics Box** — structure tags with Performance Cues on every section, syllable counts in range, `[End]` at the close, no parentheticals.
 7. **Set sliders, Max Mode and duration** — Variety Off; the other sliders at defaults unless the genre table suggests otherwise; Max Mode only when the track is long or must stay consistent, with the reason; duration matched to the section count.
 8. **Run the pre-flight checklist** below.
-9. **Present every field ready to paste** (format below).
-10. **Iterate** — generate several takes, pick the closest, then fix the weak 20% rather than regenerating the whole track. Try a plain-language edit first, on one section (`Change the chorus so it's sung by a gospel choir`) or one word (`Change the lyric from 'love' to 'light'`); then the Song Editor or Remix & Edit (Replace Section, Extend, Cover). Log what changed each pass.
+9. **Present every field ready to paste** (format below). With Suno's connector, show the same fields and generate only after the user's go-ahead (see *Through Suno's connector*).
+10. **Iterate** — generate several takes, pick the closest, then fix the weak 20% rather than regenerating the whole track. Try a plain-language edit first, on one section (`Change the chorus so it's sung by a gospel choir`) or one word (`Change the lyric from 'love' to 'light'`); then the Song Editor or Remix & Edit (Replace Section, Extend, Cover). With the connector, measure the take first. Log what changed each pass.
 
 ## Output format
 
@@ -213,23 +213,29 @@ Then add a short note on what to listen for on the first take and which lever to
 
 For non-English tracks, see the Italian and Neapolitan section above — the language rules apply to the output format too.
 
-## Through the Suno API
+## Through Suno's connector
 
-When generating directly instead of handing over paste-ready fields, the same decisions map onto Suno's create-audio call:
+When Claude has Suno's connector (tools like `audio-create`, `audio-analysis`, `audio-listen`), it can generate the song itself and check the result. Three rules on top of the workflow:
 
-| In the app | API field |
+- **Ask before spending credits.** Read `account-usage` (plan, credits, allowed models), show the fields in the format above, and generate only after the user says yes — again before every new round.
+- **Send the skill's choices explicitly.** `model: "v6"` (or the one chosen) and `controls.variety: 0` on every call: omitted, Suno falls back to its own defaults, which aren't necessarily v6 or Off. Leave `duration` out with this skill's lyrics, or set `duration_strict: false`: by default it hard-cuts the song at the target with no outro.
+- **Measure before fixing.** After a take, `audio-analysis` (tempo, key, sections, what is heard), `audio-lyrics-alignment` (words that weren't placed) and `audio-listen` (targeted questions) are free. Use them to find the problem, then apply `references/troubleshooting.md`.
+
+| In the app | Connector field |
 |---|---|
 | Style Box | `style` (≤ 1,000) |
 | Lyrics Box | `lyrics` (≤ 5,000) |
 | Exclude Styles | `negative_style` |
-| Variety | `controls.variety`, integer 0–4 (0 = Off … 4 = Max) |
+| Variety | `controls.variety`, integer 0–4 (0 = Off … 4 = Max) — send `0` explicitly |
 | Weirdness / Style Influence | `controls.weirdness` / `controls.style_influence`, 0–1 |
 | Audio Influence | `controls.audio_influence`, 0–1, only with a `voice_id` |
 | Voice Gender selector | `vocal_gender` |
-| Model | `model` |
+| Model | `model`: `v6`, `v6-wild`, `v6-mini` — always send it |
 | Max Mode | `max_mode`, set only when the user asks for it |
-| Duration | `duration`, 15–360 s, a target |
+| Duration | `duration`, 15–360 s, a target; hard cap unless `duration_strict: false` |
 | Simple mode | `description` (≤ 3,000), optionally with `reference_audio_ids` (up to 10 songs) |
+
+Field mapping, plan gating, the traps with covers, extensions and `audio-edit`, and the full measure-then-fix loop: **`references/suno-connector.md`**
 
 ## Pre-flight checklist
 
@@ -270,7 +276,8 @@ The deprecation earlier versions of this skill warned about has happened: pre-v6
 | `references/italian-genres.md` | Italian repertoire and the Italian artist blocklist |
 | `references/neapolitan-language.md` | Anything in Neapolitan — language, traditions, instruments, rhythms |
 | `references/troubleshooting.md` | A generation came back wrong and you need symptom → fix |
+| `references/suno-connector.md` | Generating through Suno's connector; checking a take with analysis, lyric alignment and listening |
 
 ---
 
-*Attribution and sources: see `CREDITS.md` at the plugin root. In short — parts of the general reference material are adapted from `bitwize-music-studio/claude-ai-music-skills` (CC0 1.0), and model/feature facts come from Suno's official release notes, blog and help centre, linked in `references/models-and-versions.md`. The Italian and Neapolitan material is original to this skill.*
+*Attribution and sources: see `CREDITS.md` in the repository, https://github.com/endjneer/suno-songcraft. In short — parts of the general reference material are adapted from `bitwize-music-studio/claude-ai-music-skills` (CC0 1.0), and model/feature facts come from Suno's official release notes, blog and help centre, linked in `references/models-and-versions.md`. The Italian and Neapolitan material is original to this skill.*

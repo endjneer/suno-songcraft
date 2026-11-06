@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.3.0 — 2026-11-06
+
+Generazione e verifica tramite il connettore Suno per Claude, e pacchetto della skill per claude.ai.
+
+### Aggiunto
+
+- `references/suno-connector.md`: cosa leggere prima di generare (`account-usage`), come i campi della skill diventano parametri del connettore, le trappole che annullano i consigli della skill (Variety omessa non è Off, `duration_strict` che tronca, cover senza testo, estensioni da unire, `audio-edit` che non tocca l'audio, crediti di download) e il ciclo misura-poi-correggi con `audio-analysis`, `audio-lyrics-alignment` e `audio-listen`, con i limiti osservati sul campo.
+- Sezione **Through Suno's connector** in `SKILL.md`: chiedere prima di spendere crediti, inviare sempre `model` e `controls.variety: 0`, misurare prima di correggere.
+- `dist/suno-songcraft.zip`: la skill pronta da caricare su claude.ai (web, desktop, mobile), dove i plugin non si installano. Istruzioni nel README.
+- Eval 3: generazione diretta col connettore.
+
+### Modificato
+
+- Limite del titolo: 100 caratteri nell'app (dato dell'era v5), 256 via API.
+- Suno Sounds: due suoni per richiesta, 1 credito ciascuno.
+- La nota sui crediti in fondo a `SKILL.md` ora rimanda al repository, perché nel pacchetto per claude.ai `CREDITS.md` non c'è.
+
 ## 1.2.0 — 2026-11-06
 
 Aggiornamento alla famiglia di modelli Suno v6 (v6, v6-wild, v6-mini), uscita il 9 settembre 2026. Tutti i modelli precedenti sono ritirati per le nuove generazioni.

@@ -4,7 +4,9 @@
 
 > **English** · [Italiano →](#italiano)
 
-A Claude Code plugin that turns a song idea into paste-ready Suno prompts — **Style Box**, **Lyrics Box** with structure tags and performance cues, **Exclude Styles**, creative sliders including Variety and Max Mode, duration, and model choice across v6 / v6-wild / v6-mini.
+A Claude skill that turns a song idea into paste-ready Suno prompts — **Style Box**, **Lyrics Box** with structure tags and performance cues, **Exclude Styles**, creative sliders including Variety and Max Mode, duration, and model choice across v6 / v6-wild / v6-mini. Use it on claude.ai (web, desktop, mobile) or as a Claude Code plugin.
+
+With **Suno's connector for Claude**, it goes one step further: it generates the song once you say yes, then checks the take — tempo, key, sections, which words were actually sung — before proposing the next change.
 
 It isn't a lyric generator with extra adjectives. It works on the places Suno generations actually fail: stage directions sung out loud by mistake, vocals buried in the mix, sections skipped, generic-but-correct output, and artist names that make a prompt fail silently.
 
@@ -17,6 +19,16 @@ It isn't a lyric generator with extra adjectives. It works on the places Suno ge
 The rule that governs all of it: **lyrics in the target language, Style Box always in English** — Suno's style vocabulary is English-trained and translated descriptors land unreliably.
 
 ## Install
+
+### On claude.ai (web, desktop, mobile)
+
+1. Download [`dist/suno-songcraft.zip`](https://github.com/endjneer/suno-songcraft/raw/main/dist/suno-songcraft.zip).
+2. In claude.ai, open the **Skills** section of the settings (Customize → Skills; on older layouts Settings → Capabilities) and upload the ZIP. Custom skills need code execution turned on; see [Anthropic's guide](https://support.claude.com/en/articles/12512180-using-skills-in-claude) if the menu looks different.
+3. To generate from the chat, also connect **Suno** among claude.ai's connectors.
+
+To update, delete the old skill and upload the new ZIP. Skills uploaded to claude.ai also show up in Claude Code under the same account, so install it in one place only, not as a skill **and** a plugin.
+
+### In Claude Code
 
 No cloning needed: this repo **is** the marketplace, because it carries `.claude-plugin/marketplace.json` at its root.
 
@@ -78,8 +90,10 @@ DURATION: ...
 │           ├── italian-language.md       Italian pronunciation for Suno
 │           ├── italian-genres.md         Italian genres + Italian artist blocklist
 │           ├── neapolitan-language.md    Neapolitan: phonology, orthography, traditions
+│           ├── suno-connector.md         generating and checking takes through Suno's connector
 │           └── troubleshooting.md        symptom → cause → fix
 └── dist/
+    ├── suno-songcraft.zip                the skill, ready to upload to claude.ai
     └── suno-ai-mastery.skill             previous packaged version, kept for reference
 ```
 
@@ -103,7 +117,9 @@ License: **CC0 1.0 Universal**. Take it, change it, republish it, no obligations
 
 > [← English](#english) · **Italiano**
 
-Plugin per Claude Code che trasforma un'idea di canzone in prompt Suno pronti da incollare: **Style Box**, **Lyrics Box** con structure tag e performance cue, **Exclude Styles**, slider creativi (incluse Variety e Max Mode), durata e scelta del modello (v6 / v6-wild / v6-mini).
+Skill per Claude che trasforma un'idea di canzone in prompt Suno pronti da incollare: **Style Box**, **Lyrics Box** con structure tag e performance cue, **Exclude Styles**, slider creativi (incluse Variety e Max Mode), durata e scelta del modello (v6 / v6-wild / v6-mini). Si usa su claude.ai (web, desktop, mobile) oppure come plugin di Claude Code.
+
+Con il **connettore Suno per Claude** fa un passo in più: genera il brano dopo il tuo ok, poi controlla la take — tempo, tonalità, sezioni, quali parole sono state davvero cantate — prima di proporre la modifica successiva.
 
 Non è un generatore di testi con qualche aggettivo in più: lavora sui punti in cui le generazioni Suno falliscono davvero — didascalie cantate per errore, voci sepolte nel mix, sezioni saltate, output generico, nomi di artisti che fanno fallire il prompt in silenzio.
 
@@ -118,6 +134,16 @@ Non è un generatore di testi con qualche aggettivo in più: lavora sui punti in
 Regola trasversale: **testi nella lingua richiesta, Style Box sempre in inglese**, perché il vocabolario di stile di Suno è addestrato in inglese e i descrittori tradotti rendono in modo inaffidabile.
 
 ## Installazione
+
+### Su claude.ai (web, desktop, mobile)
+
+1. Scarica [`dist/suno-songcraft.zip`](https://github.com/endjneer/suno-songcraft/raw/main/dist/suno-songcraft.zip).
+2. Su claude.ai apri la sezione **Skills** delle impostazioni (Customize → Skills; nelle versioni precedenti Settings → Capabilities, con i nomi tradotti se l'interfaccia è in italiano) e carica lo ZIP. Le skill personalizzate richiedono l'esecuzione di codice attiva; se il menu è diverso, vedi la [guida di Anthropic](https://support.claude.com/en/articles/12512180-using-skills-in-claude).
+3. Per generare direttamente dalla chat, collega anche **Suno** fra i connettori di claude.ai.
+
+Per aggiornare, elimina la skill vecchia e carica lo ZIP nuovo. Le skill caricate su claude.ai compaiono anche in Claude Code con lo stesso account: installala in un posto solo, non come skill **e** come plugin.
+
+### In Claude Code
 
 Non serve clonare niente: questo repo **è** il marketplace, perché contiene `.claude-plugin/marketplace.json` nella root.
 
@@ -158,7 +184,11 @@ Suno rilascia funzioni con frequenza alta. I punti che invecchiano per primi, in
 2. **Timeline funzioni 2026** — stessa pagina, sezione finale
 3. **Gating dei piani** — verifica sulla pagina prezzi prima di consigliare un upgrade
 
-Quando aggiorni, alza `version` nei due manifest e annota la modifica nel `CHANGELOG.md`.
+Quando aggiorni, alza `version` nei due manifest, annota la modifica nel `CHANGELOG.md` e ricostruisci il pacchetto per claude.ai dalla root del repo:
+
+```
+python3 -c "import shutil; shutil.make_archive('dist/suno-songcraft', 'zip', 'skills', 'suno-songcraft')"
+```
 
 ## Crediti e licenza
 

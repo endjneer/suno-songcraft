@@ -48,7 +48,7 @@ Across the family:
 | Style Box cap | 1,000 chars (Suno API limit) |
 | Lyrics Box cap | 5,000 chars (Suno API limit) |
 | Simple mode description cap | 3,000 chars (Suno API limit) |
-| Title cap | 100 chars — v5-era figure, unverified on v6 |
+| Title cap | 100 chars in-app — v5-era figure, unverified on v6; the API takes 256 |
 | **Variety** slider | ✅ New. Off / Normal / High / Extra / Max (API 0–4); reinterprets the style prompt before generating |
 | Weirdness, Style Influence, Audio Influence | ✅ (API `controls.*`; Audio Influence only with a Voice) |
 | Exclude Styles | ✅ (API `negative_style`) |
@@ -64,7 +64,8 @@ Across the family:
 | Voices, My Taste | ✅ |
 | Custom Models | ✅ Fine-tuning now runs on v6 |
 | Personas | Unverified on v6 |
-| Suno Sounds | ✅ Sound effects, one-shots and loops, tempo, key and looping settable (Pro and up) |
+| Suno's connector for Claude | ✅ Generate, cover, extend, analyse, align lyrics, ask about a take — see `suno-connector.md` |
+| Suno Sounds | ✅ Sound effects, one-shots and loops, tempo, key and looping settable (Pro and up); two per request, 1 credit each |
 | Artist-name blocking | ✅ Still enforced; v6 also screens uploaded audio and lyrics for unauthorized use |
 
 ---

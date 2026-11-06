@@ -1,8 +1,8 @@
 {
   "name": "suno-songcraft",
   "displayName": "Suno Songcraft",
-  "version": "1.2.0",
-  "description": "Prompt Suno pronti da incollare (v6, v6-wild, v6-mini), con supporto profondo per italiano e napoletano: pronuncia, dialetto, playbook di genere.",
+  "version": "1.3.0",
+  "description": "Prompt Suno pronti da incollare o generati col connettore Suno (v6, v6-wild, v6-mini), con supporto profondo per italiano e napoletano: pronuncia, dialetto, playbook di genere.",
   "author": {
     "name": "electroendjneer",
     "url": "https://github.com/electroendjneer"
