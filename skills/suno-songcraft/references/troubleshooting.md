@@ -3,6 +3,7 @@
 Symptom → cause → fix. Work top-down: most complaints about Suno output resolve to one of the first four entries.
 
 ## Contents
+- [Check this first on v6](#check-this-first-on-v6)
 - [Vocal problems](#vocal-problems)
 - [Structure and arrangement problems](#structure-and-arrangement-problems)
 - [Mix and production problems](#mix-and-production-problems)
@@ -10,6 +11,14 @@ Symptom → cause → fix. Work top-down: most complaints about Suno output reso
 - [Genre and style problems](#genre-and-style-problems)
 - [Generation failures](#generation-failures)
 - [Quick lookup table](#quick-lookup-table)
+
+---
+
+## Check this first on v6
+
+**Read the style line of the generated song.** If the tags came back different from what you wrote, Variety rewrote them — that is its documented behavior, and the only documented cause of rewritten tags. Set Variety to Off and regenerate before diagnosing anything else. Every fix below assumes Variety is Off.
+
+**Early user reports on v6** (anecdotal, not confirmed by Suno): dull or muffled top end, vocals buried in the mix, BPM and genre ignored. Rule out Variety first, then work the matching entry below — [Vocals buried under the band](#vocals-buried-under-the-band), [Mix and production problems](#mix-and-production-problems), [Output drifts off-genre or ignores the tags](#output-drifts-off-genre-or-ignores-the-tags) — and state the BPM explicitly in the style box.
 
 ---
 
@@ -49,7 +58,7 @@ Emotion words ("powerful", "defiant", "heartbroken") describe intent, not timbre
 Escalate in this order:
 1. **Inline per-section metatags** in the lyrics box, repeated on every section: `[Verse 1: Raspy older female vocal, husky contralto]`
 2. **Check whether the genre tag is fighting you** — "pop" carries a bright/youthful bias. Swap to `torch song`, `vintage soul`, `cabaret`, `1940s jazz`
-3. **Personas or Voices** (Pro/Premier) — more reliable than further style-box iteration
+3. **Voices** (Pro/Premier), or Personas (unverified on v6) — more reliable than further style-box iteration
 
 ### Wrong gender
 Use the **Voice Gender selector** in Advanced Options rather than relying on prompt text. It's the most reliable control available.
@@ -78,9 +87,9 @@ Two separate causes, often together:
 Lyrics are too long. The cap is 5,000 chars but Suno starts rushing well before it — target ~3,000 chars / 200–350 words. Cut to two verses plus chorus plus bridge.
 
 ### Wrong length
-On **V5.5 on web**, use the Duration slider in the Create form — it sets the target before generating. Then make the structure fit it: a 90-second target with three verses and a bridge still forces Suno to rush or truncate, slider or not.
+Section count is the primary lever. Add or remove sections, use `[End]` to force termination, and expect 2–3 generations to land near target. Trim in post for an exact length.
 
-Everywhere else (mobile, API, models below V5.5) section count is the only lever. Add or remove sections, use `[End]` to force termination, and expect 2–3 generations to land near target. Trim in post for an exact length.
+The Duration slider announced for V5.5 on web may also be in the Create form on v6 — verify in-app on v6. Through the API, `duration` (15–360 s) is a target, not a guarantee. Either way the structure has to fit: a 90-second target with three verses and a bridge still forces Suno to rush or truncate.
 
 ### Arrangement too busy
 Specify rests directly: `verse 2: bass rests for 4 bars`. Also reduce the instrument count in the style box — 2–4 key instruments, not a full inventory.
@@ -122,6 +131,7 @@ Extends accumulate damage. Cap at 2–3 per song, and write the extended section
 ## Genre and style problems
 
 ### Output drifts off-genre or ignores the tags
+- First confirm the tags weren't rewritten — Variety Off
 - Raise Style Influence
 - If it's still off, the genre tag is too vague — sharpen it. `Rock` → `Midwest emo, math rock influences, clean guitar`
 
@@ -137,7 +147,7 @@ Lower Weirdness, keep Style Influence mid-to-high. If you also fused four genres
 Very high Style Influence on a thin or self-contradictory prompt. Lower Style Influence slightly, or fix the contradictions — `quiet aggressive`, `fast slow ballad`, and similar pairs make the engine enforce tags that fight each other.
 
 ### Heavy genres sound thin
-A known V5 weakness. Lock Style Influence high, Weirdness low — and test V4.5, which sometimes handles metal and hardcore better.
+A known weakness on V5, unverified on v6 — and there is no older model to fall back on any more. Lock Style Influence high, Weirdness low, Variety Off.
 
 ---
 
@@ -159,6 +169,7 @@ Also rule out session carryover before concluding a fix failed: confirm on a fre
 
 | Symptom | It's a… | First move |
 |---|---|---|
+| Style tags changed in the output | slider | Variety → Off |
 | Wrong genre | prompt | Sharpen the genre tag |
 | Wrong instruments | prompt | Name 2–4 explicitly |
 | Wrong tempo | prompt | State BPM |

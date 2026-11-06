@@ -23,8 +23,9 @@ La licenza CC0 non impone attribuzione: questi crediti ci sono perché è giusto
 **Non deriva da lì**, ed è originale di questo plugin:
 
 - tutto il materiale su italiano e napoletano (`italian-language.md`, `italian-genres.md`, `neapolitan-language.md`), incluse le tabelle di respelling, gli omografi italiani, i mutamenti fonetici del napoletano e la blocklist di artisti italiani
-- `models-and-versions.md`, cioè il confronto v4.5 / v4.5+ / v5 / v5.5, la scelta del modello e il gating per piano
-- il controllo della durata con lo slider v5.5
+- `models-and-versions.md`, cioè la matrice della famiglia v6 (v6 / v6-wild / v6-mini), la migrazione da v5.5, la storia dei modelli ritirati, la scelta del modello e il gating per piano
+- il controllo della durata tramite numero di sezioni, con lo slider annunciato per v5.5 da verificare su v6
+- la mappatura dei campi verso l'API Suno
 - il formato di output a campi separati con conteggio caratteri
 
 ## Fonti ufficiali Suno
@@ -34,6 +35,16 @@ Dati su modelli, limiti dei campi, slider e funzioni presi dalla documentazione 
 - Knowledge base: https://help.suno.com/
 - Release notes: https://suno.com/release-notes
 - Blog: https://suno.com/blog
+
+Per la famiglia v6 (v6, v6-wild, v6-mini), Variety, Max Mode, limiti di download e Studio 2.0:
+
+- Introducing v6: https://suno.com/blog/introducing-v6
+- v6 FAQ: https://help.suno.com/en/articles/13924481
+- What's new in v6: https://help.suno.com/en/articles/13924801
+- Current models: v6: https://help.suno.com/en/articles/13924737
+- Aggiornamento dei Termini e limiti di download: https://suno.com/blog/suno-updates-tos
+- Studio 2.0: https://about.suno.com/blog/studio-2
+- Add Vocals: https://help.suno.com/en/articles/6882817
 
 Suno rilascia funzioni con frequenza alta e questi file invecchiano. Quando qualcosa non torna, la fonte ufficiale vince sempre su quanto scritto qui.
 

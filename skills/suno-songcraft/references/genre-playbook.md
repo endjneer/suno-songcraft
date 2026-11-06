@@ -23,6 +23,8 @@ Then check three things:
 
 ## Slider bands at a glance
 
+All bands assume Variety Off.
+
 | Genre category | Weirdness | Style Influence | Why |
 |---|---|---|---|
 | Pop / radio pop | `0.10–0.30` | `0.60–0.80` | Familiar hooks and clean structure win |
@@ -126,7 +128,7 @@ Male vocal, guttural growls with clean-sung chorus. Melodic death metal,
 tremolo-picked guitars, double bass drums, harmonized leads.
 Dense, dark, aggressive mix.
 ```
-*Suno is weakest here. Lock hard on-genre and test V4.5 alongside V5 if output sounds thin.*
+*Suno is weakest here. Lock hard on-genre.*
 
 ### Folk / acoustic
 `70–100 BPM` · W `0.10–0.30` · SI `0.60–0.80`
@@ -215,4 +217,4 @@ The hardest genre to get right, because it needs four things at once:
 Common failures: sounds like generic pop (add `maximalist` + `glossy` + concept keywords); solo voice instead of group (add the group tags); rap verse sounds sung (use `[Rap Verse]` with an aggressive-flow cue); dance break has singing (keep its lyrics empty).
 
 ### Metal and heavy genres
-Suno's weakest area. Lock Style Influence high, keep Weirdness low, and be specific about subgenre and vocal type (growls, screams, cleans, or a mix). Test V4.5 against V5 — for heavy material V4.5 sometimes wins outright.
+Suno's weakest area. Lock Style Influence high, keep Weirdness low, and be specific about subgenre and vocal type (growls, screams, cleans, or a mix).

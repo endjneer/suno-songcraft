@@ -1,6 +1,6 @@
 ---
 name: suno-songcraft
-description: Build release-ready Suno prompts — Style Box, Lyrics Box with structure tags and performance cues, Exclude Styles, creative sliders, duration control, and model choice across v4.5 / v4.5+ / v5 / v5.5. Use this skill whenever the user mentions Suno, AI music generation, style prompts, song metatags, or asks for lyrics intended for generation — and equally when they want to fix a track that came out generic, muddy, off-genre, rushed, too long, or with buried vocals. Carries deep support for Italian- and Neapolitan-language songs: pronunciation control, dialect diction, and genre playbooks for cantautorato, itpop, trap italiana, italo disco, canzone napoletana, neomelodico and tammurriata. Also covers instrumental tracks, Voices/Personas/Custom Models, stem extraction, Studio edits, and the artist-name blocklist that silently breaks prompts.
+description: Build release-ready Suno prompts — Style Box, Lyrics Box with structure tags and performance cues, Exclude Styles, creative sliders including Variety and Max Mode, duration control, and model choice across v6 / v6-wild / v6-mini. Use this skill whenever the user mentions Suno, AI music generation, style prompts, song metatags, or asks for lyrics intended for generation — and equally when they want to fix a track that came out generic, muddy, off-genre, rushed, too long, with buried vocals or with style tags Suno rewrote, edit an existing song in plain language, or migrate prompts from v5.5 to v6. Carries deep support for Italian- and Neapolitan-language songs: pronunciation control, dialect diction, and genre playbooks for cantautorato, itpop, trap italiana, italo disco, canzone napoletana, neomelodico and tammurriata. Also covers instrumental tracks, Voices/Personas/Custom Models, stem extraction, Studio edits, and the artist-name blocklist that silently breaks prompts.
 ---
 
 # Suno Songcraft
@@ -9,15 +9,16 @@ Suno builds a complete song — melody, harmony, arrangement, vocals — from a 
 
 Work from the field limits below. They are the single most common source of stale advice.
 
-## Field limits (current models)
+## Field limits
 
-| Field | V4.5 / V4.5+ / V5 / V5.5 | V4 and older |
-|---|---|---|
-| Style Box | **1,000 chars** | 200 chars |
-| Lyrics Box | **5,000 chars** | 3,000 chars |
-| Title | 100 chars | 80 chars |
+| Field | v6 family |
+|---|---|
+| Style Box | **1,000 chars** |
+| Lyrics Box | **5,000 chars** |
+| Simple mode description | **3,000 chars** |
+| Title | 100 chars *(v5-era figure)* |
 
-Limits follow the **model version**, not the subscription tier. Two caveats matter more than the caps:
+The style, lyrics and description caps are the ones Suno's own API enforces; if the Create form's counter disagrees, trust the counter. Two caveats matter more than the caps (both measured on v5-era models; unverified on v6):
 
 - **Practical lyrics ceiling is ~3,000 chars** (roughly 200–350 words, up to 500 for rap). Past that, Suno rushes, compresses, or skips sections outright.
 - **Practical style ceiling is far below 1,000.** Most effective style boxes run 100–400 chars. The constraint is descriptor quality, not length.
@@ -26,16 +27,19 @@ Any guidance claiming a 120- or 200-character style limit predates V4.5 and shou
 
 ## Pick the model before writing anything
 
-The prompt you write depends on which model runs it — v4.5 rewards long descriptive briefs, v5 and v5.5 are literal and need *less* instruction. Suno's own advice is not to rerun old V4/V4.5 prompts on V5; rewrite instead of porting.
+Since Sep 9 2026 every new generation runs on the v6 family. All earlier models (v4, v4.5, v4.5+, v5, v5.5) are retired for new generations: songs made with them stay in the library and can still be played, shared, remastered and covered, but every new iteration runs on v6.
 
-| Model | Released | Reach for it when |
+| Model | Plans | Reach for it when |
 |---|---|---|
-| **V4.5** / **v4.5-all** | May 2025 (free tier Oct 2025) | Free account, or heavy genres (metal, hardcore) where V5 sounds thin |
-| **V4.5+** | Jul 2025 | You need Add Vocals / Add Instrumental on an existing track |
-| **V5** | Sep 2025 | Cleanest audio and most natural vocals with tight prompt adherence |
-| **V5.5** | Mar 2026 | Default for new work — richest arrangements, plus Voices, Custom Models, My Taste, and the Duration slider |
+| **v6** | Pro, Premier | Default for a deliberately built prompt — the precise, reliable model, for when you know what you want |
+| **v6-wild** | Pro, Premier | Idea-mining. Favors unexpected choices and genre-blending, and moves away from the prompt by design. Take a keeper into v6 to refine it |
+| **v6-mini** | All plans (the Free plan's model) | Quick ideas, high-volume drafts, concept tests |
 
-Full capability matrix, per-model prompting differences, and the feature timeline: **`references/models-and-versions.md`**
+All three generate up to 8 minutes. A standard generation costs 10 credits for 2 songs; Max Mode and prompts with many images or videos cost more.
+
+v6 understands more musical language than the models before it, but the descriptor discipline below still holds: a tight box where every term does distinct work beats a longer one. **Hold the model fixed while iterating** — switching v6 ↔ v6-wild while also editing the prompt makes the result uninterpretable.
+
+Full capability matrix, migration from v5.5, retired-model history and the feature timeline: **`references/models-and-versions.md`**
 
 ## Five rules that prevent most failures
 
@@ -47,7 +51,7 @@ Parenthetical stage directions get sung as words. `(atmospheric opening)`, `(bui
 `Male baritone, gritty, storytelling. Alternative rock, clean electric guitar, driving bass. Modern production.` — not the reverse. Position carries weight; a vocal description buried at the end gets outcompeted.
 
 **3. Never use real artist or band names.**
-Suno actively filters them; the prompt fails or degrades. Describe the sound instead: not "Aphex Twin" but `IDM, glitchy beats, ambient textures`. See `references/style-box.md`.
+Suno actively filters them, and still does on v6; the prompt fails or degrades. Describe the sound instead: not "Aphex Twin" but `IDM, glitchy beats, ambient textures`. v6 also screens uploaded audio and lyrics for unauthorized use. See `references/style-box.md`.
 
 **4. Every descriptor must add distinct information.**
 The failure mode is the *synonym-pile*: "imperious, commanding, regal, grand, theatrical" is one mood said five times, and it dilutes attention rather than reinforcing it. A focused ~10-descriptor box is fine. Collapse synonyms; keep genuinely distinct instrument, vocal, and production detail.
@@ -68,7 +72,7 @@ Include, in rough priority order: vocal identity → genre (2–3 descriptors ma
 
 Genre specificity beats genre stacking. `Midwest emo, math rock influences, clean guitar` works; six fused genres produce mud.
 
-A **conversational production brief** is the officially supported alternative on V4.5 and later — Suno's own example is *"Create a melodic, emotional deep house song with organic textures and hypnotic rhythms. Begin with soft ambient layers, natural sounds, and a deep, steady groove. Build gradually with flowing melodic synths, warm basslines, and intricate, subtle percussion."* Use it when the track has an arc worth narrating; use the comma-separated shape when precision on specific elements matters more. Don't mix the two halfway.
+A **conversational production brief** became the officially supported alternative with V4.5 (unverified on v6) — Suno's own example is *"Create a melodic, emotional deep house song with organic textures and hypnotic rhythms. Begin with soft ambient layers, natural sounds, and a deep, steady groove. Build gradually with flowing melodic synths, warm basslines, and intricate, subtle percussion."* Use it when the track has an arc worth narrating; use the comma-separated shape when precision on specific elements matters more. Don't mix the two halfway.
 
 **Exclude Styles (negative prompting)** shifts odds against an element — probabilistic, never a hard filter. Keep to 2–4 items in `no [element]` form. The dedicated Exclude Styles field (Custom Mode → Advanced Options) is the reliable path; appending `no …` inline to the style box is the weaker fallback. Most useful against Suno's habit of over-adding group vocals: `no choir, no backing vocals, no gang vocals`.
 
@@ -115,29 +119,32 @@ Full tag inventory, reliability tiers, bar-count targeting, sound effects, duets
 
 ## Creative sliders
 
-Sliders sit *on top of* the prompt. They change how hard Suno commits to it, never what it makes.
+Weirdness, Style Influence and Audio Influence sit *on top of* the prompt. They change how hard Suno commits to it, never what it makes. **Variety**, new in v6, is different in kind: it adjusts and reinterprets the style prompt itself before generating.
 
 | Slider | Low | High |
 |---|---|---|
+| **Variety** *(v6)* | **Off** — style tags used as written | Normal → High → Extra → Max: Suno adjusts and reinterprets the style prompt |
 | **Weirdness** | Predictable, hooky, conventional | Experimental; more variance, more takes needed |
 | **Style Influence** | Loose, blends freely, happy accidents | Genre-pure, tags enforced hard |
 | **Audio Influence** | Reference is a loose seed | Output hews to the uploaded audio *(appears only with an upload)* |
 
 Suno describes Weirdness as **Safe → Chaos with 50% as the normal expected result**, and Style Influence as **Loose → Strong**. Treat 50/50 as the true baseline.
 
-**Diagnose before touching anything.** Wrong genre, wrong instruments, wrong tempo, wrong vocal character, mispronunciation → these are *prompt* problems and no slider fixes them. Generic-but-correct, drifting, chaotic, or wooden → those are slider problems.
+**Variety is Off in every prompt this skill builds.** Suno's v6 FAQ says Variety works by adjusting and updating the style prompt, and that setting it to 0 keeps full control of the style tags. Left on, it swaps the descriptor work for Suno's own rewrite, so you end up testing its prompt instead of yours. Raise it only when the user wants Suno to reinterpret the style.
 
-Generate at defaults first. Then move **one slider, one small step**, and regenerate. Changing a slider and the prompt in the same pass makes the result uninterpretable.
+**Diagnose before touching anything.** First read the style line of the generated song: tags that came back changed mean Variety rewrote them — set it to Off and regenerate. Wrong genre, wrong instruments, wrong tempo, wrong vocal character, mispronunciation → these are *prompt* problems and no slider fixes them. Generic-but-correct, drifting, chaotic, or wooden → those are slider problems.
+
+Generate at defaults first, with Variety Off. Then move **one slider, one small step**, and regenerate. Changing a slider and the prompt in the same pass makes the result uninterpretable.
+
+**Max Mode** is an optional toggle that costs a multiple of the normal credits. Suno recommends it for songs over ~2 minutes, covers that should stay close to the original, style transfers, and keeping voice and style consistent across the track. Suggest it when one of those applies, say why, and leave the spend to the user.
 
 Per-genre starting ranges, interaction effects, full diagnosis table: **`references/sliders-and-iteration.md`**
 
 ## Duration
 
-Since July 2026 there is a **Duration slider** in the Create form on web with V5.5 — set the target length before generating instead of fighting the arrangement afterwards. It offers an Auto mode (model decides) and a Custom mode; reported range runs from about 10 seconds to 6 minutes in 5-second steps.
+A **Duration slider** was announced for V5.5 on web (Jul 20 2026), with an Auto mode (model decides) and a Custom mode. Whether it is in the app on v6 is not confirmed — **verify in-app on v6** before relying on it. Through the Suno API, `duration` takes 15–360 seconds, as a target rather than a guarantee.
 
-The slider sets a target, not a contract. Structure still has to fit it: asking for 90 seconds while supplying three verses and a bridge forces Suno to rush or truncate. Match the section count to the length.
-
-**When the slider isn't available** — mobile, API, or any model below V5.5 — section count is the only lever:
+Any duration setting is a target, not a contract. Structure still has to fit it: asking for 90 seconds while supplying three verses and a bridge forces Suno to rush or truncate. **Section count is the primary lever**, slider or not:
 
 | Target | Structure |
 |---|---|
@@ -146,7 +153,7 @@ The slider sets a target, not a contract. Structure still has to fit it: asking 
 | 3:00–5:00 | Standard structure |
 | Over 5:00 | 3+ verses, pre-chorus, bridge, 1–2 instrumental sections; add `extended` or `epic` |
 
-Without the slider, expect 2–3 generations to land near target, and trim in post. Max is ~8 minutes on V4.5 and later; quality degrades past 6–7.
+Expect 2–3 generations to land near target, and trim in post. Every v6 model generates up to 8 minutes; v5-era testing found quality degrading past 6–7 (unverified on v6). For long tracks, consider Max Mode.
 
 ## Italian and Neapolitan
 
@@ -170,23 +177,23 @@ Beyond that, reach for the reference files rather than improvising:
 
 ## Workflow
 
-1. **Establish intent** — genre and mood, theme, language, vocal direction, target duration, and whether Voices / Custom Model / Persona is active. Ask only for what's genuinely missing; infer the rest and state the assumption.
-2. **Pick the model** — V5.5 unless the user is on free tier or working in a heavy genre. State which one the prompt is written for, since it changes how much instruction to give.
+1. **Establish intent** — genre and mood, theme, language, vocal direction, target duration, the user's plan (Free runs only v6-mini), and whether Voices / Custom Model / Persona is active. Ask only for what's genuinely missing; infer the rest and state the assumption.
+2. **Pick model and mode** — v6 for a deliberately built prompt, v6-wild for idea-mining, v6-mini for quick tests or on Free. Use **Custom mode** for anything this skill builds: separate Style and Lyrics fields are what make a miss diagnosable. **Simple mode** fits when the user wants to start from existing material: it takes Suno songs, playlists, uploaded audio, images and video in one prompt and chooses between Cover, Remix and Extend itself.
 3. **Check the instrumental branch** — if instrumental, set `Instrumental: On`, drop all vocal description from the style box, and use structure tags only in the lyrics box (`[Intro]`, `[Main Theme]`, `[Break]`, `[End]`). Skip steps involving vocals entirely.
 4. **Build the Style Box** — vocals first, then genre, instruments, mood, tempo, production. Pull concrete texture and range words rather than emotion words (see rule 4 and `references/style-box.md`).
 5. **Decide exclusions** — 2–4 items, or explicitly none. Consider what the genre implies: acoustic folk → `no electric instruments`; a cappella → `no instruments`.
 6. **Write the Lyrics Box** — structure tags with Performance Cues on every section, syllable counts in range, `[End]` at the close, no parentheticals.
-7. **Set sliders and duration** — defaults unless the genre table suggests otherwise; duration matched to the section count.
+7. **Set sliders, Max Mode and duration** — Variety Off; the other sliders at defaults unless the genre table suggests otherwise; Max Mode only when the track is long or must stay consistent, with the reason; duration matched to the section count.
 8. **Run the pre-flight checklist** below.
 9. **Present every field ready to paste** (format below).
-10. **Iterate** — generate several takes, pick the closest, then use the Song Editor on the weak 20% rather than regenerating the whole track. Log what changed each pass.
+10. **Iterate** — generate several takes, pick the closest, then fix the weak 20% rather than regenerating the whole track. Try a plain-language edit first, on one section (`Change the chorus so it's sung by a gospel choir`) or one word (`Change the lyric from 'love' to 'light'`); then the Song Editor or Remix & Edit (Replace Section, Extend, Cover). Log what changed each pass.
 
 ## Output format
 
 Present the fields separately and paste-ready, with character counts so the user can see the headroom:
 
 ```
-MODEL: v5.5 · INSTRUMENTAL: Off
+MODEL: v6 / v6-wild / v6-mini · MODE: Custom · INSTRUMENTAL: Off
 
 STYLE BOX  (238/1000)
 ────────────────────────────────
@@ -197,17 +204,37 @@ LYRICS BOX  (1,847/5000)
 <tagged lyrics>
 
 EXCLUDE STYLES: <2-4 items, or "none">
-SLIDERS: Weirdness <x> · Style Influence <y>
-DURATION: <target, or "Auto">
+SLIDERS: Variety Off · Weirdness <x> · Style Influence <y>
+MAX MODE: Off (or On, with the reason)
+DURATION: <target, matched by section count>
 ```
 
 Then add a short note on what to listen for on the first take and which lever to move if it misses.
 
 For non-English tracks, see the Italian and Neapolitan section above — the language rules apply to the output format too.
 
+## Through the Suno API
+
+When generating directly instead of handing over paste-ready fields, the same decisions map onto Suno's create-audio call:
+
+| In the app | API field |
+|---|---|
+| Style Box | `style` (≤ 1,000) |
+| Lyrics Box | `lyrics` (≤ 5,000) |
+| Exclude Styles | `negative_style` |
+| Variety | `controls.variety`, integer 0–4 (0 = Off … 4 = Max) |
+| Weirdness / Style Influence | `controls.weirdness` / `controls.style_influence`, 0–1 |
+| Audio Influence | `controls.audio_influence`, 0–1, only with a `voice_id` |
+| Voice Gender selector | `vocal_gender` |
+| Model | `model` |
+| Max Mode | `max_mode`, set only when the user asks for it |
+| Duration | `duration`, 15–360 s, a target |
+| Simple mode | `description` (≤ 3,000), optionally with `reference_audio_ids` (up to 10 songs) |
+
 ## Pre-flight checklist
 
-- [ ] Model stated, and the prompt written for that model's verbosity
+- [ ] Model stated (v6 / v6-wild / v6-mini), and held fixed across iterations
+- [ ] Variety Off unless the user wants Suno to reinterpret the style
 - [ ] Style Box opens with vocal identity (or the track is instrumental)
 - [ ] No real artist or band names anywhere
 - [ ] Every descriptor adds distinct information — no synonym-piles
@@ -224,18 +251,20 @@ For non-English tracks, see the Italian and Neapolitan section above — the lan
 
 Since the Warner Music partnership (Nov 2025), subscribers hold **commercial use rights** but are generally **not considered the owner** of generated output; Suno takes no revenue share.
 
-**The free-tier trap is not reversible.** Tracks generated on a free account are permanently non-commercial — upgrading later does **not** retroactively unlock rights for anything already made. Anything that might eventually be released has to be generated on a paid plan from the start. The free plan also runs an older model line (v4.5-all); v5.5 requires Pro or Premier.
+**The free-tier trap is not reversible.** Tracks generated on a free account are permanently non-commercial — upgrading later does **not** retroactively unlock rights for anything already made. Anything that might eventually be released has to be generated on a paid plan from the start. The Free plan runs v6-mini; v6 and v6-wild require Pro or Premier.
 
-Two practical consequences worth raising when a user is building a catalog: **current models are slated for deprecation** when licensed models launch, so important generations should be downloaded now; and human creative contribution — original lyrics, live-tracked layers, arrangement decisions made in a DAW, a documented process — is what strengthens any ownership claim over a fully generated track.
+**Downloads are capped** (Terms in force since Sep 3 2026): Free gets 7 trial downloads in total, for personal use only; Pro 20 a month; Premier 60 a month, plus unlimited exports from Studio. Extra downloads can be bought, and the caps also apply to songs made before Sep 3. Songs downloaded on a paid plan stay commercially usable. In practice: iterate inside Suno and download only keepers; on Premier, export finals and stems through Studio.
+
+The deprecation earlier versions of this skill warned about has happened: pre-v6 models are retired for new generations, though their songs stay in the library. And human creative contribution — original lyrics, live-tracked layers, arrangement decisions made in a DAW, a documented process — is what strengthens any ownership claim over a fully generated track.
 
 ## Reference map
 
 | File | Read it when |
 |---|---|
-| `references/models-and-versions.md` | Choosing a model; a feature may not exist on the user's tier; porting a prompt between versions |
+| `references/models-and-versions.md` | Choosing among v6 / v6-wild / v6-mini; a feature may not exist on the user's plan; migrating a v5.5 prompt to v6 |
 | `references/style-box.md` | Building or debugging a style prompt; need vocal/texture vocabulary; checking the artist blocklist |
 | `references/lyrics-box.md` | Formatting lyrics; choosing structure tags; bar counts, sound effects, duets |
-| `references/sliders-and-iteration.md` | Choosing slider values; deciding prompt-vs-slider; Song Editor, extends, stems, Studio |
+| `references/sliders-and-iteration.md` | Choosing slider values, Variety, Max Mode; deciding prompt-vs-slider; plain-language edits, Song Editor, extends, stems, Studio 2.0 |
 | `references/genre-playbook.md` | Need a genre-specific starting point, BPM range, or slider band |
 | `references/italian-language.md` | Any Italian-language lyric — pronunciation, stress, geminates, homographs |
 | `references/italian-genres.md` | Italian repertoire and the Italian artist blocklist |

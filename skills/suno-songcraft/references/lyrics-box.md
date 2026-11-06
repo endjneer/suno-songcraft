@@ -1,6 +1,6 @@
 # Lyrics Box Reference
 
-Everything that goes in Suno's lyrics field. Cap is 5,000 characters on V4.5/V5/V5.5 — but **~3,000 is the practical ceiling** before Suno starts rushing, compressing, or skipping sections. Target 200–350 words for most genres, up to 500 for rap.
+Everything that goes in Suno's lyrics field. Cap is 5,000 characters on the v6 family — but **~3,000 is the practical ceiling** before Suno starts rushing, compressing, or skipping sections. Target 200–350 words for most genres, up to 500 for rap.
 
 ## Contents
 - [The literal-singing rule](#the-literal-singing-rule)
@@ -36,7 +36,7 @@ Everything that goes in Suno's lyrics field. Cap is 5,000 characters on V4.5/V5/
 
 Stage directions, production notes, and parenthetical descriptions all belong in the **Style Box** or nowhere. For an instrumental passage, a bare descriptive tag does the job: `[Guitar Solo]`, `[Drum Break]`, `[Instrumental]`.
 
-This isn't an argument for keeping the Lyrics Box thin. Suno's own V4.5 guidance is the opposite: keep *genre-level* information in the Style field and put *song-level* context directly in the Lyrics field. That context arrives as bracketed structure tags and performance cues — the mechanisms below — not as prose.
+This isn't an argument for keeping the Lyrics Box thin. Suno's own guidance, published with V4.5, is the opposite: keep *genre-level* information in the Style field and put *song-level* context directly in the Lyrics field. That context arrives as bracketed structure tags and performance cues — the mechanisms below — not as prose.
 
 ### Two deliberate exceptions
 
@@ -83,7 +83,7 @@ Every section gets one. Without tags, arrangement is unpredictable.
 
 ## Tag reliability
 
-Not all tags land equally. V5 improved reliability broadly, but the tiers still hold.
+Not all tags land equally. These tiers were observed on V5-era models; unverified on v6.
 
 | Tier | Tags |
 |---|---|
@@ -132,7 +132,7 @@ These are not a substitute for mood and energy prose in the Style Box. Stacking 
 
 ## Bar count targeting
 
-V5 accepts target bar counts appended to section tags:
+Target bar counts can be appended to section tags (tested on V5; unverified on v6):
 
 ```
 [INTRO 4] [VERSE 1 8] [PRE 4] [CHORUS 8] [VERSE 2 8] [PRE 4]

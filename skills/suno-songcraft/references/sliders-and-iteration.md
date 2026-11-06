@@ -4,27 +4,45 @@ The sliders and the post-generation tools. Everything here is about *refining* a
 
 ## Contents
 - [What the sliders do](#what-the-sliders-do)
+- [Variety](#variety)
 - [Weirdness](#weirdness)
 - [Style Influence](#style-influence)
 - [Audio Influence](#audio-influence)
+- [Max Mode](#max-mode)
 - [Interaction effects](#interaction-effects)
 - [Prompt problem or slider problem](#prompt-problem-or-slider-problem)
 - [Iteration discipline](#iteration-discipline)
+- [Plain-language edits](#plain-language-edits)
 - [Song Editor](#song-editor)
 - [Extending](#extending)
 - [Stem extraction](#stem-extraction)
-- [Suno Studio](#suno-studio)
+- [Suno Studio 2.0](#suno-studio-20)
 - [Known limitations](#known-limitations)
 
 ---
 
 ## What the sliders do
 
-The sliders sit *on top of* the style prompt. They don't change **what** Suno makes — the prompt does that. They change **how hard Suno commits** to it and **how far it may wander**.
+Weirdness, Style Influence and Audio Influence sit *on top of* the style prompt. They don't change **what** Suno makes — the prompt does that. They change **how hard Suno commits** to it and **how far it may wander**. **Variety**, new in v6, is the exception: it changes the style prompt itself (see below).
 
 Suno's own descriptions are deliberately terse: Weirdness runs **Safe → Chaos**, where **50% is the normal expected result**; Style Influence runs **Loose → Strong**; Audio Influence appears only when audio has been uploaded. Everything below is a working refinement of that, not official doctrine.
 
-Positions below are on a 0.00–1.00 scale, matching the API's `styleWeight` and `weirdnessConstraint`. If the interface shows 0–100, read `0.70` as `70`. These bands are starting points: generate once at the 50/50 baseline, then dial in by ear.
+Positions below are on a 0.00–1.00 scale, matching Suno's API: `controls.weirdness`, `controls.style_influence`, `controls.audio_influence`. The names `styleWeight` and `weirdnessConstraint` that circulate in guides come from third-party wrappers, not from Suno's API. If the interface shows 0–100, read `0.70` as `70`. These bands are starting points: generate once at the 50/50 baseline with Variety Off, then dial in by ear.
+
+---
+
+## Variety
+
+New in v6, and different in kind from the other three. It doesn't change how hard Suno commits to the style prompt: it **adjusts and reinterprets the style prompt itself** before generating.
+
+| Setting | API `controls.variety` | Behavior |
+|---|---|---|
+| **Off** | `0` | Style tags used as written |
+| Normal → High → Extra → Max | `1`–`4` | Suno adjusts and reinterprets the style prompt before generating |
+
+**Set it to Off for any style box written with care** — which is every style box this skill produces. Suno's v6 FAQ: Variety introduces variety "by adjusting and updating your style prompts", and to keep full control of the style tags you reduce it to 0. Left on, you end up testing Suno's rewrite of your prompt instead of your prompt. Raise it only when the user wants Suno to reinterpret a loose idea.
+
+**How to tell it was on:** read the style line of the generated song. Tags that came back different from what you wrote are Variety's doing — not a Style Influence problem, and not a prompt problem.
 
 ---
 
@@ -76,6 +94,19 @@ Raise it when a cover doesn't resemble the source enough. Lower it for more tran
 
 ---
 
+## Max Mode
+
+Not a slider but an optional toggle on any generation, at a multiple of the normal credit cost. Suno recommends it for:
+
+- songs longer than ~2 minutes
+- covers that should stay close to the original
+- style transfer
+- keeping vocals and style consistent across the whole track
+
+Treat it as a spend decision: suggest it when one of those applies, give the reason, and leave it to the user. Through the API, `max_mode` is set only when the user asks for it.
+
+---
+
 ## Interaction effects
 
 | | **Low Style Influence** | **High Style Influence** |
@@ -100,6 +131,7 @@ The **prompt** decides what the track is — genre, instruments, mood, tempo, vo
 
 | Symptom | First move |
 |---|---|
+| Style tags came back changed | **Variety → Off.** Check this before anything else |
 | Generic / too safe | Raise Weirdness slightly **or** lower Style Influence slightly — one at a time |
 | Drifts off-genre, ignores tags | Raise Style Influence; if still off, sharpen the genre tag |
 | Chaotic / incoherent | Lower Weirdness, keep Style Influence mid–high |
@@ -115,16 +147,27 @@ The **prompt** decides what the track is — genre, instruments, mood, tempo, vo
 ## Iteration discipline
 
 1. Write a clear, focused prompt first
-2. **Generate at default slider positions.** Don't pre-adjust blind
+2. **Generate at default slider positions, with Variety Off.** Don't pre-adjust blind
 3. Listen, then diagnose — prompt problem or slider problem
-4. Move **one thing, one small step**, regenerate
+4. Move **one thing, one small step**, regenerate — with the model held fixed
 5. **Log every attempt** — the value changed and what it did
 
 **The golden rule:** adjusting a slider *and* rewriting the prompt in the same pass makes it impossible to know which move helped.
 
 Generate several takes per prompt rather than one, and pick the closest to intent before refining. When a descriptor combination works, save it — a personal library of proven style boxes compounds faster than any general guide.
 
-Suno's own guidance is worth repeating: **don't rerun old V4/V4.5 prompts on V5.** V5 listens differently and needs less instruction. Rewrite rather than port.
+**Coming from v5.5:** don't assume a v5.5 prompt behaves the same on v6. Regenerate it on v6 with Variety Off and compare before reusing it — see `models-and-versions.md`.
+
+---
+
+## Plain-language edits
+
+Since v6, an existing song can be edited by describing the change. Try this first when one part is wrong — it leaves the rest of the song alone:
+
+- **A section:** `Change the chorus so it's sung by a gospel choir`
+- **A single word:** `Change the lyric from 'love' to 'light'`
+
+Remix & Edit on v6 also covers Extend, Cover, Replace Section and more. Reach for the Song Editor below when the fix is structural — reordering, deleting, remaking several sections.
 
 ---
 
@@ -172,13 +215,24 @@ Access via **More Actions (…) → Get Stems** on any clip. For an isolated voc
 
 ---
 
-## Suno Studio
+## Suno Studio 2.0
 
 Premier-tier generative DAW: timeline multitrack editing, stem generation and manipulation, MIDI export, audio upload, Sample-to-Song, and pitch transposition (±12 semitones, preserving melody and phrasing — useful for fixing key mismatches without spending credits on a regeneration).
 
+**Studio 2.0** (Aug 13 2026) added:
+
+- MIDI and recording
+- automation
+- effects and plugins created through chat
+- a wavetable synth
+- Split from Mix / Advanced Split stem separation inside the session
+- unlimited exports of multitracks and stems at 32-bit/48 kHz
+
+Those unlimited exports matter since the Sep 2026 download caps: on Premier, export finals and stems from Studio rather than spending the monthly download allowance.
+
 **Sample to Song:** upload a short snippet (a guitar riff, a vocal melody), describe the full composition, and Suno expands it. Practical for building arrangements around a real recorded part — which also strengthens the human-contribution side of any ownership claim.
 
-**Studio 1.2** (Feb 2026) added four things that change what's worth fixing in Studio rather than by regenerating:
+**Studio 1.2** (Feb 2026) added four things that change what's worth fixing in Studio rather than by regenerating (whether each carries over unchanged into 2.0 is unverified):
 
 | Tool | Use it for |
 |---|---|
@@ -203,7 +257,8 @@ It's a drafting aid, not a formatting authority — it will not stop you writing
 - Acoustic nuance isn't always captured
 - Niche subgenres (metalcore, extreme styles) may miss hallmarks
 - Extreme cross-style fusions → muddy results
-- Quality degrades past 6–7 minutes; hard ceiling ~8
-- **V4.5 sometimes beats V5 for heavy genres.** If metal or hardcore output sounds thin, test both models
+- Quality degraded past 6–7 minutes in v5-era testing (unverified on v6); hard ceiling 8 on every v6 model
+- **Heavy genres can sound thin.** There is no older model to fall back on any more: lock Style Influence high, Weirdness low, Variety Off, and name the subgenre and vocal type
+- Early v6 user reports (anecdotal): dull or muffled top end, buried vocals, BPM and genre ignored — see the top of `troubleshooting.md`
 
-Current models are slated for deprecation when the WMG-licensed models launch. Download WAVs of anything worth keeping.
+Models before v6 were retired on Sep 9 2026; their songs stay in the library. Downloads are now capped per plan (see `models-and-versions.md`), so download keepers rather than every take.

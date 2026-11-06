@@ -1,5 +1,34 @@
 # Changelog
 
+## 1.2.0 — 2026-11-06
+
+Aggiornamento alla famiglia di modelli Suno v6 (v6, v6-wild, v6-mini), uscita il 9 settembre 2026. Tutti i modelli precedenti sono ritirati per le nuove generazioni.
+
+### Aggiunto
+
+- Scelta del modello fra v6, v6-wild e v6-mini, con piani, costi e la regola di tenere fisso il modello mentre si itera.
+- Slider **Variety** (Off di default in tutti i prompt della skill) e toggle **Max Mode**, in `SKILL.md` e `sliders-and-iteration.md`. Primo passo di ogni diagnosi: leggere la style line del brano generato, perché tag cambiati vogliono dire Variety.
+- Edit in linguaggio naturale su un brano esistente (una sezione o una parola), prima del Song Editor.
+- Simple mode con più input (brani, playlist, audio, immagini, video) come alternativa alla Custom mode.
+- Sezione **Through the Suno API** con la mappatura dei campi (`style`, `lyrics`, `negative_style`, `controls.*`, `max_mode`, `description`...).
+- Limiti di download per piano (Termini in vigore dal 3 settembre 2026) e Studio 2.0.
+- In `models-and-versions.md`: matrice della famiglia v6, migrazione v5.5 → v6, timeline estesa (Studio 2.0, Termini, v6), sezione **Retired models (history)**.
+- In `troubleshooting.md`: controllo di Variety in cima e segnalazioni (aneddotiche) degli utenti su v6.
+
+### Modificato
+
+- Limiti dei campi in una sola colonna "v6 family", più il limite di 3.000 caratteri della description in Simple mode.
+- Durata: lo slider Duration (annunciato per v5.5) va verificato in-app su v6; il numero di sezioni resta la leva principale.
+- Voices, Custom Models e My Taste non più etichettati v5.5; i Custom Models esistenti sono passati a v6 da soli e vanno riprovati su un brano di riferimento.
+- Riferimenti di versione in `lyrics-box.md` e `style-box.md`.
+- Formato di output: `MODEL`, `MODE`, `SLIDERS` con Variety, `MAX MODE`.
+
+### Rimosso
+
+- Ogni consiglio di provare V4.5 sui generi pesanti: non c'è più un modello di riserva.
+- L'avviso «current models are slated for deprecation»: la deprecazione è avvenuta.
+- I nomi API `styleWeight` e `weirdnessConstraint`, che vengono da wrapper di terze parti.
+
 ## 1.1.0 — 2026-08-09
 
 Specializzazione sulla musica in lingua italiana e napoletana, più attribuzioni esplicite.

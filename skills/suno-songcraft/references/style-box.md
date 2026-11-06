@@ -1,6 +1,6 @@
 # Style Box Reference
 
-Everything that goes in Suno's "Style of Music" field. Cap is 1,000 characters on V4.5/V5/V5.5, but effective boxes usually run 100–400.
+Everything that goes in Suno's "Style of Music" field. Cap is 1,000 characters on the v6 family, but effective boxes usually run 100–400.
 
 ## Contents
 - [Anatomy](#anatomy)
@@ -35,7 +35,7 @@ Periods separate the three blocks; commas separate items within a block. Both ar
 Melancholic, slow-burn, piano and strings, female alto with subtle vibrato
 ```
 
-**Alternative — conversational production brief.** Officially supported since V4.5, and the shape Suno itself demonstrates. Useful when the track has an arc worth narrating rather than a list of elements worth naming:
+**Alternative — conversational production brief.** Officially supported since V4.5 (unverified on v6), and the shape Suno itself demonstrates. Useful when the track has an arc worth narrating rather than a list of elements worth naming:
 
 ```
 Create a melodic, emotional deep house song with organic textures and
@@ -44,7 +44,7 @@ deep, steady groove. Build gradually with flowing melodic synths, warm
 basslines, and intricate, subtle percussion
 ```
 
-Pick one shape and commit. A half-list, half-narrative box reads as neither and dilutes both. On V5/V5.5 keep the brief shorter than you would on V4.5 — those models honour more of what's written, so a paragraph that added richness on V4.5 can add clutter here.
+Pick one shape and commit. A half-list, half-narrative box reads as neither and dilutes both. Keep the brief short: from V5 on, Suno honours more of what's written, so a paragraph that added richness on V4.5 can add clutter. v6 understands more musical language, but the same discipline holds.
 
 **Optional additions that earn their place:** BPM (critical for dance genres, useful everywhere), key, era ("90s alt-rock with Britpop undertones"), and one arrangement note ("verse 2: bass rests for 4 bars").
 
@@ -52,7 +52,7 @@ Pick one shape and commit. A half-list, half-narrative box reads as neither and 
 
 ## Descriptor discipline
 
-V5 is literal and dilutes attention when descriptors restate each other. The target is not a word count — it's that **each descriptor tells Suno something the others don't.**
+V5 was literal and diluted attention when descriptors restated each other; v6 understands more musical language, but the discipline still holds. The target is not a word count — it's that **each descriptor tells Suno something the others don't.**
 
 ```
 ❌ Synonym-pile — one idea said six ways:
@@ -85,7 +85,7 @@ Female alto, sultry, breathy, R&B phrasing with subtle runs
 Male baritone, gravelly, introspective, folk storyteller
 ```
 
-V5 also has a dedicated **Voice Gender selector** in Advanced Options (male/female). It is more reliable than prompt text alone — use it as the baseline and let the prompt handle texture and delivery.
+Suno also has a dedicated **Voice Gender selector** in Advanced Options (male/female; API `vocal_gender`). It is more reliable than prompt text alone — use it as the baseline and let the prompt handle texture and delivery.
 
 ### Section-by-section vocal dynamics
 
@@ -167,7 +167,7 @@ Two escalations, in order:
 1. **Inline per-section metatags in the Lyrics Box** — a vocal descriptor inside the section tag, repeated on *every* section: `[Verse 1: Raspy older female vocal, husky contralto]`. Different mechanism from the Style Box; Suno may weight it independently. This is an escalation, not a default pattern.
 2. **Check whether the genre tag is fighting you.** "Pop" carries a bright/youthful bias no adjective fully cancels. Swap for genre words that are inherently mature-vocal-coded: `torch song`, `vintage soul`, `cabaret`, `1940s jazz`, `vintage country`.
 
-Beyond that, Personas or Voices (Pro/Premier) are more reliable than further style-box iteration.
+Beyond that, Voices (Pro/Premier), or Personas (unverified on v6), are more reliable than further style-box iteration.
 
 ---
 
@@ -229,13 +229,15 @@ All three change what the Style Box should contain — the point is to stop the 
 
 | Feature | What it carries | What to drop from the Style Box |
 |---|---|---|
-| **Voices** (v5.5 voice cloning) | The specific voice | Gender, range, and vocal-identity descriptors |
-| **Custom Models** (v5.5 fine-tuning, 6+ of your tracks) | Your production aesthetic | Generic production language — "glossy", "polished mix", "modern pop production" |
-| **Personas** | Vocals, style, and vibe of a past generation | Vocal identity; keep the style prompt to 1–2 genres plus instrumentation |
+| **Voices** (voice cloning; works on v6) | The specific voice | Gender, range, and vocal-identity descriptors |
+| **Custom Models** (fine-tuned on v6 from your own tracks; the 6+ track minimum is a v5.5 figure) | Your production aesthetic | Generic production language — "glossy", "polished mix", "modern pop production" |
+| **Personas** *(unverified on v6)* | Vocals, style, and vibe of a past generation | Vocal identity; keep the style prompt to 1–2 genres plus instrumentation |
 
-Voice + Persona is redundant — pick one. With Voices, keep **Audio Influence fairly high (~0.70–0.85)** or the result drifts toward a generic vocal. Custom Models are best for album consistency; generic v5.5 is better for deliberately off-brand tracks.
+Voice + Persona is redundant — pick one. With Voices, keep **Audio Influence fairly high (~0.70–0.85)** or the result drifts toward a generic vocal. Custom Models are best for album consistency; stock v6 is better for deliberately off-brand tracks.
 
-**My Taste** (all tiers) learns passively and shapes the *style autogenerate* button only. It does not override explicit prompts.
+**Existing Custom Models moved to v6 automatically.** Songs made with their v5.5 version stay as they were, but the model itself now runs on v6 and can sound different: regenerate a known reference song through it and compare before relying on it.
+
+**My Taste** (all tiers, works on v6) learns passively and shapes the *style autogenerate* button only. It does not override explicit prompts.
 
 Voice capture rules, verification, plan gating and the full feature timeline: **`models-and-versions.md`**.
 
