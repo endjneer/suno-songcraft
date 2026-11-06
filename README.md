@@ -21,7 +21,7 @@ The rule that governs all of it: **lyrics in the target language, Style Box alwa
 No cloning needed: this repo **is** the marketplace, because it carries `.claude-plugin/marketplace.json` at its root.
 
 ```
-/plugin marketplace add https://github.com/electroendjneer/suno-songcraft.git
+/plugin marketplace add https://github.com/endjneer/suno-songcraft.git
 /plugin install suno-songcraft@suno-tools
 ```
 
@@ -29,9 +29,7 @@ If the install summary says `Run /reload-plugins to activate.`, run it. Check wi
 
 The skill is then available as `/suno-songcraft`, and Claude invokes it on its own whenever the conversation turns to Suno, style prompts, lyrics meant for generation, or a track that came out wrong.
 
-**Why the full URL and not the `owner/repo` shorthand.** The shorthand clones over SSH, which authenticates as whichever GitHub account your SSH key belongs to — not necessarily the one that has access to this repo. The explicit `https://` URL goes through your git credential helper (`gh auth login`, keychain, `git-credential-store`) and matches the account you're actually signed in as. The shorthand works too if your SSH key is on the right account, or with `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` in front of the command — but the full URL simply always works, including for updates.
-
-**This repo is currently private.** Installing from a private repo is supported, but only for accounts with access. To let someone else install it, either add them as a collaborator on the repo, or make the repo public.
+**Why the full URL and not the `owner/repo` shorthand.** The shorthand clones over SSH, so it only works if you have an SSH key set up on GitHub. The explicit `https://` URL needs no credentials on a public repo and simply always works, including for updates. The shorthand also works with `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` in front of the command.
 
 ## Usage
 
@@ -124,7 +122,7 @@ Regola trasversale: **testi nella lingua richiesta, Style Box sempre in inglese*
 Non serve clonare niente: questo repo **è** il marketplace, perché contiene `.claude-plugin/marketplace.json` nella root.
 
 ```
-/plugin marketplace add https://github.com/electroendjneer/suno-songcraft.git
+/plugin marketplace add https://github.com/endjneer/suno-songcraft.git
 /plugin install suno-songcraft@suno-tools
 ```
 
@@ -132,14 +130,12 @@ Se al termine compare `Run /reload-plugins to activate.`, esegui `/reload-plugin
 
 La skill diventa disponibile come `/suno-songcraft` e Claude la richiama anche da solo quando la conversazione riguarda Suno, prompt musicali, testi da generare o una traccia venuta male.
 
-**Perché l'URL completo e non la forma `utente/repo`.** La forma breve clona via SSH, e SSH ti autentica come l'account GitHub a cui appartiene la chiave — che non è per forza quello con accesso a questo repo. Se hai più account configurati sulla stessa macchina, è la trappola classica: il comando fallisce con un errore di repo inesistente, che sembra un problema di nome. L'URL `https://` esplicito passa invece dal credential helper git (`gh auth login`, keychain, `git-credential-store`) e usa l'account con cui sei realmente loggato. La forma breve funziona lo stesso se la chiave SSH è sull'account giusto, oppure anteponendo `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` — ma l'URL completo funziona sempre, aggiornamenti inclusi.
-
-**Il repo al momento è privato.** L'installazione da repo privata è supportata, ma solo per account che vi hanno accesso. Per farlo installare a qualcun altro: o lo aggiungi come collaboratore, o rendi il repo pubblico.
+**Perché l'URL completo e non la forma `utente/repo`.** La forma breve clona via SSH, quindi funziona solo se hai una chiave SSH configurata su GitHub. L'URL `https://` esplicito, su un repo pubblico, non chiede credenziali e funziona sempre, aggiornamenti inclusi. In alternativa, la forma breve funziona anteponendo `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1`.
 
 ### Installazione da cartella locale
 
 ```
-/plugin marketplace add ./sunoskill
+/plugin marketplace add ./suno-songcraft
 /plugin install suno-songcraft@suno-tools
 ```
 
